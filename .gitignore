@@ -1,0 +1,15 @@
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+/dev/data
+/tomcat.8082/*
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+### jenv ###
+.java-version
