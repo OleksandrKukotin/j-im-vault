@@ -12,19 +12,19 @@ repositories {
 }
 
 ext {
-    tomcatVersion = "10.1.0-M10"
+    tomcatVersion = "9.0.0.M6"
 }
 
 dependencies {
-    implementation 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
     implementation "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion"
     implementation "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion"
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatVersion"
     implementation "org.apache.tomcat:tomcat-jasper:$tomcatVersion"
     implementation "org.apache.tomcat:tomcat-jasper-el:$tomcatVersion"
     implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatVersion"
-    implementation 'org.postgresql:postgresql:42.2.5'
-    testImplementation 'junit:junit:4.12'
+    implementation 'org.postgresql:postgresql:42.3.1'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 test {
