@@ -1,0 +1,1 @@
+docker run --name t-pg -p 5434:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres postgres
