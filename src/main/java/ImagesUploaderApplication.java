@@ -12,6 +12,7 @@ public class ImagesUploaderApplication {
 
     public static void main(String[] args) throws ServletException, LifecycleException {
         final DBConnector dbConnector = new DBConnector();
+        final TextRepositoryDB textRepository = new TextRepositoryDB(dbConnector.get());
 
         final Tomcat tomcat = new Tomcat();
         tomcat.setPort(TOMCAT_PORT);

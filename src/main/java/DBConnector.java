@@ -8,10 +8,10 @@ import java.util.Properties;
 
 public class DBConnector {
 
-    private static final String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS images (id bigserial PRIMARY KEY, image )";
+    private static final String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS texts (id bigserial PRIMARY KEY, textAuthor text, textBody text)";
     private static final String APP_PROPERTIES_FILENAME = "app.properties";
     private static final String PG_DEFAULT_VALUE = "postgres";
-    private static final int DATASOURCE_DEFAULT_PORT = 5433;
+    private static final int DATASOURCE_DEFAULT_PORT = 5434;
 
     private final Properties properties;
 
@@ -28,11 +28,11 @@ public class DBConnector {
     DataSource get() {
         try {
             final PGSimpleDataSource dataSource = new PGSimpleDataSource();
-            dataSource.setServerNames(new String[]{properties.getProperty("datasource.host")});
-            dataSource.setPortNumbers(new int[]{Integer.parseInt(properties.getProperty("datasource.port", String.valueOf(DATASOURCE_DEFAULT_PORT)))});
-            dataSource.setUser(properties.getProperty("datasource.user",PG_DEFAULT_VALUE));
-            dataSource.setPassword(properties.getProperty("datasource.password", PG_DEFAULT_VALUE));
-            dataSource.setDatabaseName(properties.getProperty("datasource.databaseName", PG_DEFAULT_VALUE));
+            dataSource.setServerNames(new String[]{properties.getProperty("dataSource.host")});
+            dataSource.setPortNumbers(new int[]{Integer.parseInt(properties.getProperty("dataSource.port", String.valueOf(DATASOURCE_DEFAULT_PORT)))});
+            dataSource.setUser(properties.getProperty("dataSource.user",PG_DEFAULT_VALUE));
+            dataSource.setPassword(properties.getProperty("dataSource.password", PG_DEFAULT_VALUE));
+            dataSource.setDatabaseName(properties.getProperty("dataSource.databaseName", PG_DEFAULT_VALUE));
             dataSource.getConnection().createStatement().execute(CREATE_IMAGES_TABLE);
             return dataSource;
         } catch (SQLException exception) {
