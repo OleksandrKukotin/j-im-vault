@@ -13,11 +13,15 @@ public class ImagesUploaderApplication {
     public static void main(String[] args) throws ServletException, LifecycleException {
         final DBConnector dbConnector = new DBConnector();
         final TextRepositoryDB textRepository = new TextRepositoryDB(dbConnector.get());
+        final TextService textService = new TextService(textRepository);
 
         final Tomcat tomcat = new Tomcat();
         tomcat.setPort(TOMCAT_PORT);
 
         final Context context = tomcat.addWebapp("", new File(WEBAPP_DIR_LOCATION).getAbsolutePath());
+
+        Tomcat.addServlet(context, "Add Text", new AddingTextServlet(textService));
+        context.addServletMapping("/index", "Add Text");
 
         tomcat.start();
         tomcat.getServer().await();
