@@ -1,16 +1,7 @@
 public class Text {
 
-    private Long ig;
     private String textAuthor;
     private String textBody;
-
-    public Long getIg() {
-        return ig;
-    }
-
-    public void setIg(Long ig) {
-        this.ig = ig;
-    }
 
     public String getTextAuthor() {
         return textAuthor;

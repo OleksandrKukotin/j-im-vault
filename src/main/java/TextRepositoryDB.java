@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 public class TextRepositoryDB implements TextRepository {
 
-    private static final String INSERT_INTO_TEXTS = "INSERT INTO texts (textAuthor, textBody) VALUES (?,?)";
+    private static final String INSERT_INTO_TEXTS = "INSERT INTO texts(textAuthor,textBody)VALUES(?,?)";
     private static final String SELECT_TEXTS_BY_AUTHOR = "SELECT * FROM texts WHERE textAuthor";
     private final DataSource dataSource;
 

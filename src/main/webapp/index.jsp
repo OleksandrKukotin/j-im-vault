@@ -5,12 +5,12 @@
     <title>Images Uploader</title>
 </head>
 <body>
-    <h1 style="text-align: center">Images Uploader</h1>
-    <form name="addTextForm" action="index.jsp" method="post">
-        <label for="textAuthor">Text Author</label>
-        <input type="text" id="textAuthor" name="textAuthor">
-        <label for="textBody">Text</label>
-        <input type="text" id="textBody" name="textBody">
+    <h1 style="display: flex; justify-content: center">Images Uploader</h1>
+    <form name="addTextForm" method="post">
+        <input type="text" id="textAuthor" name="textAuthor" placeholder="Text Author" size="25">
+        <br>
+        <input type="text" id="textBody" name="textBody" placeholder="Text" size="25">
+        <br>
         <input type="submit" name="Submit" value="Add text">
     </form>
 </body>

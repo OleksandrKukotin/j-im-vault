@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class AddingTextServlet extends HttpServlet {
 
-    private TextService textService;
+    private final TextService textService;
 
     public AddingTextServlet(TextService textService) {
         this.textService = textService;

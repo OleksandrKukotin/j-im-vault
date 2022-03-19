@@ -20,8 +20,8 @@ public class ImagesUploaderApplication {
 
         final Context context = tomcat.addWebapp("", new File(WEBAPP_DIR_LOCATION).getAbsolutePath());
 
-        Tomcat.addServlet(context, "Add Text", new AddingTextServlet(textService));
-        context.addServletMapping("/index", "Add Text");
+        Tomcat.addServlet(context, "AddingText", new AddingTextServlet(textService));
+        context.addServletMapping("/index", "AddingText");
 
         tomcat.start();
         tomcat.getServer().await();
