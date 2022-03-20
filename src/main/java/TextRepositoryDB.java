@@ -18,7 +18,7 @@ public class TextRepositoryDB implements TextRepository {
             final PreparedStatement ps = dataSource.getConnection().prepareStatement(INSERT_INTO_TEXTS);
             ps.setString(1, text.getTextAuthor());
             ps.setString(2, text.getTextBody());
-            ps.execute();
+            ps.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }

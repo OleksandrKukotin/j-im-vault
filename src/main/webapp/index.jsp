@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1 style="display: flex; justify-content: center">Images Uploader</h1>
-    <form name="addTextForm" method="post">
+    <form name="addTextForm" method="post" action="index">
         <input type="text" id="textAuthor" name="textAuthor" placeholder="Text Author" size="25">
         <br>
         <input type="text" id="textBody" name="textBody" placeholder="Text" size="25">
