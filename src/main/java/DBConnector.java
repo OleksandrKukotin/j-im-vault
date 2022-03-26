@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class DBConnector {
 
-    private static final String CREATE_TEXTS_TABLE = "CREATE TABLE IF NOT EXISTS texts (id bigserial PRIMARY KEY, textAuthor text, textBody text)";
+    private static final String CREATE_IMAGES_TABLE = "CREATE TABLE IF NOT EXISTS images (id bigserial PRIMARY KEY, imgName varchar(255), img bytea)";
     private static final String APP_PROPERTIES_FILENAME = "app.properties";
     private static final String PG_DEFAULT_VALUE = "postgres";
     private static final int DATASOURCE_DEFAULT_PORT = 5434;
@@ -33,7 +33,7 @@ public class DBConnector {
             dataSource.setUser(properties.getProperty("dataSource.user",PG_DEFAULT_VALUE));
             dataSource.setPassword(properties.getProperty("dataSource.password", PG_DEFAULT_VALUE));
             dataSource.setDatabaseName(properties.getProperty("dataSource.databaseName", PG_DEFAULT_VALUE));
-            dataSource.getConnection().createStatement().execute(CREATE_TEXTS_TABLE);
+            dataSource.getConnection().createStatement().execute(CREATE_IMAGES_TABLE);
             return dataSource;
         } catch (SQLException exception) {
             throw new RuntimeException();
