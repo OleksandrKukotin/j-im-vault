@@ -15,6 +15,9 @@ public class ImagesUploaderApplication {
         final TextRepositoryDB textRepository = new TextRepositoryDB(dbConnector.get());
         final TextService textService = new TextService(textRepository);
 
+        final ImageRepositoryDB imageRepository = new ImageRepositoryDB(dbConnector.get());
+        final ImageService imageService = new ImageService(imageRepository);
+
         final Tomcat tomcat = new Tomcat();
         tomcat.setPort(TOMCAT_PORT);
 
@@ -22,6 +25,9 @@ public class ImagesUploaderApplication {
 
         Tomcat.addServlet(context, "AddingText", new AddingTextServlet(textService));
         context.addServletMapping("/index", "AddingText");
+
+        Tomcat.addServlet(context, "AddingImage", new AddingImageServlet(imageService));
+        context.addServletMapping("/imageUpload", "AddingImage");
 
         tomcat.start();
         tomcat.getServer().await();

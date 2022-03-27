@@ -22,16 +22,16 @@
         <a href="index.jsp"> Upload Texts </a>
     </li>
 </menu>
-<form name="addImageForm" method="post" action="imageUpload" style="display: flex; flex-direction: column;">
+<form name="addImageForm" method="post" action="imageUpload" enctype="multipart/form-data" style="display: flex; flex-direction: column;">
     <ul style="list-style-type: none">
         <li class="list-item">
-            <input type="file" accept="image/*" id="textAuthor" name="textAuthor" placeholder="Choose Image" size="25">
+            <input type="file" accept="image/*" id="imageFile" name="imageFile" size="25"/>
         </li>
         <li class="list-item">
-            <input type="text" id="imageName" name="imageName" placeholder="Image name" size="25">
+            <input type="text" id="imageName" name="imageName" placeholder="Image name" size="25"/>
         </li>
         <li class="list-item">
-            <input type="submit" name="Submit" value="Add text">
+            <input type="submit" name="Submit" value="Upload image"/>
         </li>
     </ul>
 </form>
