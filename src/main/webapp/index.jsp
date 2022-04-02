@@ -25,10 +25,10 @@
     <form name="addTextForm" method="post" action="index" style="display: flex; flex-direction: column;">
         <ul style="list-style-type: none">
             <li class="list-item">
-                <input type="text" id="textAuthor" name="textAuthor" placeholder="Text Author" size="25">
+                <input type="text" name="textAuthor" placeholder="Text Author" size="25">
             </li>
             <li class="list-item">
-                <input type="text" id="textBody" name="textBody" placeholder="Text" size="25">
+                <input type="text" name="textBody" placeholder="Text" size="25">
             </li>
             <li class="list-item">
                 <input type="submit" name="Submit" value="Add text">
