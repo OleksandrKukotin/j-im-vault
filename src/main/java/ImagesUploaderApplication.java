@@ -22,6 +22,7 @@ public class ImagesUploaderApplication {
         tomcat.setPort(TOMCAT_PORT);
 
         final Context context = tomcat.addWebapp("", new File(WEBAPP_DIR_LOCATION).getAbsolutePath());
+        context.setAllowCasualMultipartParsing(true);
 
         Tomcat.addServlet(context, "AddingText", new AddingTextServlet(textService));
         context.addServletMapping("/index", "AddingText");
