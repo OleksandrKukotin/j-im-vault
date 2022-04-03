@@ -1,9 +1,9 @@
-import java.io.File;
+import java.io.InputStream;
 
 public class Image {
 
     private String imageName;
-    private File imageFile;
+    private InputStream imageIS;
 
     public String getImageName() {
         return imageName;
@@ -13,11 +13,11 @@ public class Image {
         this.imageName = imageName;
     }
 
-    public File getImageFile() {
-        return imageFile;
+    public InputStream getImageIS() {
+        return imageIS;
     }
 
-    public void setImageFile(File imageFile) {
-        this.imageFile = imageFile;
+    public void setImageIS(InputStream imageIS) {
+        this.imageIS = imageIS;
     }
 }
