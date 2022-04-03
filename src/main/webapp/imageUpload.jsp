@@ -25,10 +25,10 @@
 <form name="addImageForm" method="post" action="imageUpload" enctype="multipart/form-data" style="display: flex; flex-direction: column;">
     <ul style="list-style-type: none">
         <li class="list-item">
-            <input type="text" name="imageName" placeholder="Image name" formenctype="text/plain" size="25"/>
+            <input type="text" name="imageName" placeholder="Image name" size="25"/>
         </li>
         <li class="list-item">
-            <input type="file" accept="image/*" name="imageFile" formenctype="multipart/form-data" size="25"/>
+            <input type="file" accept="image/*" name="imageFile"/>
         </li>
         <li class="list-item">
             <input type="submit" name="Submit" value="Upload image"/>
