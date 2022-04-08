@@ -12,9 +12,6 @@ public class ImagesUploaderApplication {
 
     public static void main(String[] args) throws ServletException, LifecycleException {
         final DBConnector dbConnector = new DBConnector();
-        final TextRepositoryDB textRepository = new TextRepositoryDB(dbConnector.get());
-        final TextService textService = new TextService(textRepository);
-
         final ImageRepositoryDB imageRepository = new ImageRepositoryDB(dbConnector.get());
         final ImageService imageService = new ImageService(imageRepository);
 
@@ -23,9 +20,6 @@ public class ImagesUploaderApplication {
 
         final Context context = tomcat.addWebapp("", new File(WEBAPP_DIR_LOCATION).getAbsolutePath());
         context.setAllowCasualMultipartParsing(true);
-
-        Tomcat.addServlet(context, "AddingText", new AddingTextServlet(textService));
-        context.addServletMapping("/index", "AddingText");
 
         Tomcat.addServlet(context, "AddingImage", new AddingImageServlet(imageService));
         context.addServletMapping("/imageUpload", "AddingImage");

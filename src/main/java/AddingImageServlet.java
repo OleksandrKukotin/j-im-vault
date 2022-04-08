@@ -18,7 +18,7 @@ public class AddingImageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("imageUpload.jsp").forward(req, resp);
+        req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 
     @Override
@@ -27,6 +27,6 @@ public class AddingImageServlet extends HttpServlet {
         imageAddingFormDto.setImageName(req.getParameter("imageName"));
         imageAddingFormDto.setImageIS(req.getPart("imageFile").getInputStream());
         imageService.addToDB(imageAddingFormDto);
-        resp.sendRedirect("imageUpload.jsp");
+        resp.sendRedirect("index.jsp");
     }
 }
