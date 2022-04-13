@@ -24,6 +24,7 @@ dependencies {
     implementation "org.apache.tomcat:tomcat-jasper-el:$tomcatVersion"
     implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatVersion"
     implementation 'org.postgresql:postgresql:42.3.3'
+    implementation 'com.amazonaws:aws-java-sdk:1.11.1024'
     testImplementation 'junit:junit:4.13.2'
 }
 
