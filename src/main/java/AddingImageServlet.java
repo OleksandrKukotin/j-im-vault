@@ -24,9 +24,11 @@ public class AddingImageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final ImageAddingFormDto imageAddingFormDto = new ImageAddingFormDto();
+        final AmazonS3Service amazonS3Service = new AmazonS3Service();
         imageAddingFormDto.setImageName(req.getParameter("imageName"));
         imageAddingFormDto.setImageIS(req.getPart("imageFile").getInputStream());
-        imageService.addToDB(imageAddingFormDto);
+        String key = amazonS3Service.addToS3(imageAddingFormDto.getImageIS());
+        imageService.addToDB(imageAddingFormDto, key);
         resp.sendRedirect("index.jsp");
     }
 }

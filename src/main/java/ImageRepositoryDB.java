@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class ImageRepositoryDB implements ImageRepository {
 
-    private final static String INSERT_INTO_IMAGES = "INSERT INTO images (imgname, img) VALUES (?, ?)";
+    private final static String INSERT_INTO_IMAGES = "INSERT INTO image_addr (imgname, key) VALUES (?, ?)";
     private final DataSource dataSource;
 
     public ImageRepositoryDB(DataSource dataSource) {
@@ -13,13 +13,13 @@ public class ImageRepositoryDB implements ImageRepository {
     }
 
     @Override
-    public void save(Image img) {
+    public void save(Image img, String key) {
         try {
             final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(INSERT_INTO_IMAGES);
             preparedStatement.setString(1, img.getImageName());
-            preparedStatement.setBinaryStream(2, img.getImageIS(), img.getImageIS().available());
+            preparedStatement.setString(2, key);
             preparedStatement.executeUpdate();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

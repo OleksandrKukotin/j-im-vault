@@ -14,10 +14,13 @@
     </style>
 </head>
 <body>
-<h1 style="display: flex; justify-content: center"> SMU - Some Media Uploader</h1>
+<h1 style="display: flex; justify-content: center"> IU - Images Uploader</h1>
 <menu style="display: flex; justify-content: center; list-style-type: none">
     <li class="menu-item">
         <a href="index.jsp"> Upload Images </a>
+    </li>
+    <li class="menu-item">
+        <a> View Images </a>
     </li>
 </menu>
 <form name="addImageForm" method="post" action="imageUpload" enctype="multipart/form-data" style="display: flex; flex-direction: column;">

@@ -6,8 +6,8 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
-    public boolean addToDB(ImageAddingFormDto imageAddingFormDto) {
-        imageRepository.save(createImage(imageAddingFormDto));
+    public boolean addToDB(ImageAddingFormDto imageAddingFormDto, String key) {
+        imageRepository.save(createImage(imageAddingFormDto), key);
         return true;
     }
 
