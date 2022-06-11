@@ -13,7 +13,7 @@ import java.util.UUID;
 public class AmazonS3Service {
 
     private AmazonS3 s3;
-    private final static String BUCKET_NAME = "bucket" + UUID.randomUUID();
+    private final static String BUCKET_NAME = System.getenv().getOrDefault("bucket", "bucket");
 
     public AmazonS3Service() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(
@@ -23,7 +23,6 @@ public class AmazonS3Service {
             .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
             .withRegion(Regions.EU_WEST_2)
             .build();
-        this.s3.createBucket(BUCKET_NAME);
     }
 
     public String addToS3(InputStream inputStream) {
