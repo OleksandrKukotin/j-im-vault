@@ -7,7 +7,6 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
-
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -15,10 +14,11 @@ public class AmazonS3Service {
 
     private AmazonS3 s3;
     private final static String BUCKET_NAME = "bucket" + UUID.randomUUID();
-    private final static String ENDPOINT = "https://0.0.0.0:4566";
 
     public AmazonS3Service() {
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA2KLAVT2YIMYXW7OU", "ojCZj7x+aou35mpGdXEPvbuU5ldS1MhlNC634Vd1");
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(
+            System.getenv().getOrDefault("accessKey", "accessKey"),
+            System.getenv().getOrDefault("secretKey", "secretKey"));
         this.s3 = AmazonS3ClientBuilder.standard()
             .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
             .withRegion(Regions.EU_WEST_2)
