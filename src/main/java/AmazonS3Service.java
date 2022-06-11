@@ -1,12 +1,12 @@
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
+
 
 import java.io.InputStream;
 import java.util.UUID;
@@ -15,14 +15,15 @@ public class AmazonS3Service {
 
     private AmazonS3 s3;
     private final static String BUCKET_NAME = "bucket" + UUID.randomUUID();
-    private final static String ENDPOINT = "http://0.0.0.0:4566";
+    private final static String ENDPOINT = "https://0.0.0.0:4566";
 
     public AmazonS3Service() {
-        BasicAWSCredentials creds = new BasicAWSCredentials("aws-access-key", "aws-secret-key");
-        this.s3 = AmazonS3Client.builder()
-            .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(ENDPOINT, Regions.EU_CENTRAL_1.getName()))
-            .withCredentials(new AWSStaticCredentialsProvider(creds))
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA2KLAVT2YIMYXW7OU", "ojCZj7x+aou35mpGdXEPvbuU5ldS1MhlNC634Vd1");
+        this.s3 = AmazonS3ClientBuilder.standard()
+            .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+            .withRegion(Regions.EU_WEST_2)
             .build();
+        this.s3.createBucket(BUCKET_NAME);
     }
 
     public String addToS3(InputStream inputStream) {
