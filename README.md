@@ -10,9 +10,10 @@ Application for upload and store images in AWS S3 storage.
 2. Run shell script from dev/start-postgres.sh in command stroke or shell
 - *AWS S3 Service*
 1. Register and confirm account in https://aws.amazon.com/
-2. Sign in to the AWS management Console
+2. Sign in to the AWS Management Console
 3. In IAM service create access key
 4. Paste your access and secret key to code or as environment variables
 5. In S3 service create bucket 
-6. Paste to code name of bucket and this region using Regions class
+6. Paste to code name of bucket and his region using Regions class
 - *Run the code*
+- *Open localhost:8082 in your browser*
