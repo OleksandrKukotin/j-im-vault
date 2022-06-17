@@ -1,3 +1,5 @@
+import java.sql.ResultSet;
+
 public class ImageService {
 
     private final ImageRepository imageRepository;
@@ -9,6 +11,10 @@ public class ImageService {
     public boolean addToDB(ImageAddingFormDto imageAddingFormDto, String key) {
         imageRepository.save(createImage(imageAddingFormDto), key);
         return true;
+    }
+
+    public ResultSet getAll() {
+        return imageRepository.getAll();
     }
 
     private Image createImage(ImageAddingFormDto imageAddingFormDto) {
