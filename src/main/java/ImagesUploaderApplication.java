@@ -24,6 +24,9 @@ public class ImagesUploaderApplication {
         Tomcat.addServlet(context, "AddingImage", new AddingImageServlet(imageService));
         context.addServletMapping("/imageUpload", "AddingImage");
 
+        Tomcat.addServlet(context, "DisplayImages", new DisplayImagesServlet(imageService));
+        context.addServletMapping("/imagesPreview", "DisplayImages");
+
         tomcat.start();
         tomcat.getServer().await();
     }
