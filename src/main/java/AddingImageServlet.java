@@ -2,12 +2,6 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 
-//import javax.servlet.ServletException;
-//import javax.servlet.annotation.MultipartConfig;
-//import javax.servlet.annotation.WebServlet;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("imageUpload")
@@ -30,9 +24,8 @@ public class AddingImageServlet extends HttpServlet {
     protected void doPost(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, IOException {
         final ImageAddingFormDto imageAddingFormDto = new ImageAddingFormDto();
         imageAddingFormDto.setImageName(req.getParameter("imageName"));
-        imageAddingFormDto.setImageIS(req.getPart("imageFile").getInputStream());
-        String key = amazonS3Service.addToS3(imageAddingFormDto.getImageIS());
-        imageService.addToDB(imageAddingFormDto, key);
+        imageAddingFormDto.setKey(amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()));
+        imageService.addToDB(imageAddingFormDto);
         resp.sendRedirect("index.jsp");
     }
 }

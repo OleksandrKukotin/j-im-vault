@@ -1,8 +1,9 @@
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImageRepositoryDB implements ImageRepository {
 
@@ -15,10 +16,10 @@ public class ImageRepositoryDB implements ImageRepository {
     }
 
     @Override
-    public void save(Image img, String key) {
+    public void save(Image img) {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(INSERT_INTO_IMAGES)) {
             preparedStatement.setString(1, img.getImageName());
-            preparedStatement.setString(2, key);
+            preparedStatement.setString(2, img.getKey());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,11 +27,16 @@ public class ImageRepositoryDB implements ImageRepository {
     }
 
     @Override
-    public ResultSet getAll() {
+    public List<String> getAll() {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_IMAGES)) {
-            return preparedStatement.executeQuery();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<String> imageNames = new ArrayList<>();
+            while (resultSet.next()) {
+                imageNames.add(resultSet.getString("imgname"));
+            }
+            return imageNames;
         } catch (SQLException e) {
-            return null;
+            return new ArrayList<>();
         }
     }
 }

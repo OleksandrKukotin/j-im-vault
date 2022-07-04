@@ -1,8 +1,8 @@
-import java.sql.ResultSet;
+import java.util.List;
 
 public interface ImageRepository {
 
-    void save(Image img, String key);
+    void save(Image img);
 
-    ResultSet getAll();
+    List<String> getAll();
 }

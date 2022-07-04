@@ -21,10 +21,10 @@ public class ImagesUploaderApplication {
         context.setAllowCasualMultipartParsing(true);
 
         tomcat.addServlet(context.getPath(), "AddingImage", new AddingImageServlet(imageService));
-        context.addServletMappingDecoded("/imagesUpload", "AddingImage");
+        context.addServletMappingDecoded("/imageUpload", "AddingImage");
 
-//        tomcat.addServlet(context.getPath(), "DisplayImages", DisplayImagesServlet.class.getCanonicalName());
-//        context.addServletMappingDecoded("/imagesPreview", "DisplayImages");
+        tomcat.addServlet(context.getPath(), "DisplayImages", new DisplayImagesServlet(imageService));
+        context.addServletMappingDecoded("/imagesPreview", "DisplayImages");
 
         tomcat.getConnector();
         tomcat.start();

@@ -3,7 +3,7 @@ import java.io.InputStream;
 public class Image {
 
     private String imageName;
-    private InputStream imageIS;
+    private String key;
 
     public String getImageName() {
         return imageName;
@@ -13,11 +13,11 @@ public class Image {
         this.imageName = imageName;
     }
 
-    public InputStream getImageIS() {
-        return imageIS;
+    public String getKey() {
+        return key;
     }
 
-    public void setImageIS(InputStream imageIS) {
-        this.imageIS = imageIS;
+    public void setKey(String key) {
+        this.key = key;
     }
 }
