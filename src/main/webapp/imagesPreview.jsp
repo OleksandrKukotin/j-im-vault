@@ -1,4 +1,4 @@
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,16 +16,10 @@
     <%--    <script src="js/table.js"></script>--%>
 </head>
 <body>
-<h1 style="display: flex; justify-content: center"> IU - Images Uploader </h1>
-<h2 style="display: flex; justify-content: center"> Images Preview </h2>
-<menu style="display: flex; justify-content: center; list-style-type: none; padding-inline-start: 0">
-    <li class="menu-item">
-        <a href="index.jsp"> Upload Images </a>
-    </li>
-    <li class="menu-item">
-        <a href="imagesPreview.jsp"> View Images </a>
-    </li>
-</menu>
+<c:import url="import/header.jsp"></c:import>
+<form action="imagesPreview" method="POST">
+    <input type="submit">
+</form>
 <table>
     <thead>
         <tr>
@@ -33,14 +27,25 @@
             <th>Key</th>
         </tr>
     </thead>
-    <tr>
-        <td>Image Name</td>
-        <td>Key</td>
-    </tr>
-    <c:forEach items="${imagesList}" var="item">
+    <c:forEach var = "i" begin = "1" end = "5">
         <tr>
-            <td>${item.getImageName()}</td>
-            <td>${item.getKey()}</td>
+            <td> Item ${i} </td>
+            <td> Key ${i} </td>
+        </tr>
+    </c:forEach>
+</table>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>Image name</th>
+        <th>Key</th>
+    </tr>
+    </thead>
+    <c:forEach items = "${imagesList}" var = "image">
+        <tr>
+            <td> <c:out value="${image}"></c:out> </td>
+<%--            <td> Key ${image.getKey()} </td>--%>
         </tr>
     </c:forEach>
 </table>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,16 +16,7 @@
     </style>
 </head>
 <body>
-<h1 style="display: flex; justify-content: center"> IU - Images Uploader</h1>
-<h2 style="display: flex; justify-content: center"> Images Uploading Form </h2>
-<menu style="display: flex; justify-content: center; list-style-type: none; padding-inline-start: 0">
-    <li class="menu-item">
-        <a href="index.jsp"> Upload Images </a>
-    </li>
-    <li class="menu-item">
-        <a href="imagesPreview.jsp"> View Images </a>
-    </li>
-</menu>
+<c:import url="import/header.jsp"></c:import>
 <form name="addImageForm" method="post" action="imageUpload" enctype="multipart/form-data" style="display: flex; flex-direction: column;">
     <ul style="list-style-type: none">
         <li class="form-field">
