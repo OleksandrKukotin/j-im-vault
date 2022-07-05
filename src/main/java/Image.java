@@ -1,5 +1,3 @@
-import java.io.InputStream;
-
 public class Image {
 
     private String imageName;

@@ -1,5 +1,3 @@
-import java.io.InputStream;
-
 public class ImageAddingFormDto {
 
     private String imageName;
