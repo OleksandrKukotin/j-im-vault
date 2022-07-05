@@ -27,14 +27,17 @@ public class ImageRepositoryDB implements ImageRepository {
     }
 
     @Override
-    public List<String> getAll() {
+    public List<ImageDisplayDto> getAll() {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_IMAGES)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            List<String> imageNames = new ArrayList<>();
+            List<ImageDisplayDto> imageDisplayDTOList = new ArrayList<>();
             while (resultSet.next()) {
-                imageNames.add(resultSet.getString("imgname"));
+                ImageDisplayDto imageDisplayDTO = new ImageDisplayDto();
+                imageDisplayDTO.setImageName(resultSet.getString("imgname"));
+                imageDisplayDTO.setKey(resultSet.getString("key"));
+                imageDisplayDTOList.add(imageDisplayDTO);
             }
-            return imageNames;
+            return imageDisplayDTOList;
         } catch (SQLException e) {
             return new ArrayList<>();
         }

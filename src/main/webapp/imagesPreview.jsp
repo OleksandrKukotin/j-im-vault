@@ -9,7 +9,7 @@
             padding: 1em;
         }
 
-        table,tr,td {
+        table,tr,td,th {
             border: 1px solid black;
         }
     </style>
@@ -22,21 +22,6 @@
 </form>
 <table>
     <thead>
-        <tr>
-            <th>Image name</th>
-            <th>Key</th>
-        </tr>
-    </thead>
-    <c:forEach var = "i" begin = "1" end = "5">
-        <tr>
-            <td> Item ${i} </td>
-            <td> Key ${i} </td>
-        </tr>
-    </c:forEach>
-</table>
-<br>
-<table>
-    <thead>
     <tr>
         <th>Image name</th>
         <th>Key</th>
@@ -44,8 +29,8 @@
     </thead>
     <c:forEach items = "${imagesList}" var = "image">
         <tr>
-            <td> <c:out value="${image}"></c:out> </td>
-<%--            <td> Key ${image.getKey()} </td>--%>
+            <td> ${image.getImageName()} </td>
+            <td> ${image.getKey()} </td>
         </tr>
     </c:forEach>
 </table>

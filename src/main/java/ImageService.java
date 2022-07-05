@@ -12,7 +12,7 @@ public class ImageService {
         imageRepository.save(createImage(imageAddingFormDto));
     }
 
-    public List<String> getAll() {
+    public List<ImageDisplayDto> getAll() {
         return imageRepository.getAll();
     }
 
