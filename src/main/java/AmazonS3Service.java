@@ -7,6 +7,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -31,10 +32,10 @@ public class AmazonS3Service {
         return objectKey;
     }
 
-    protected InputStream getInputStreamFromS3(String key) {
+    protected byte[] getImageAsBytes(String key) throws IOException {
         S3Object s3Object = this.s3.getObject(BUCKET_NAME, key);
         S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
-        return s3ObjectInputStream.getDelegateStream();
+        return s3ObjectInputStream.getDelegateStream().readAllBytes();
     }
 
     private void removeFromS3(String key) {

@@ -23,14 +23,18 @@
 <table>
     <thead>
     <tr>
-        <th>Image name</th>
-        <th>Key</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Image</th>
     </tr>
     </thead>
     <c:forEach items = "${imagesList}" var = "image">
         <tr>
             <td> ${image.getImageName()} </td>
-            <td> ${image.getKey()} </td>
+            <td>Date</td>
+            <td>
+                <img src="data:image/jpg;base64,${image.getBase64Image()}" width="300" height="100" alt="${image.getImageName()}"/>
+            </td>
         </tr>
     </c:forEach>
 </table>
