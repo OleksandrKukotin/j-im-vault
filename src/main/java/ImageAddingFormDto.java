@@ -1,14 +1,17 @@
+import java.time.LocalDateTime;
+
 public class ImageAddingFormDto {
 
-    private String imageName;
+    private String name;
     private String key;
+    private LocalDateTime timeOfAdding;
 
-    public String getImageName() {
-        return imageName;
+    public String getName() {
+        return name;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getKey() {
@@ -17,5 +20,13 @@ public class ImageAddingFormDto {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public LocalDateTime getTimeOfAdding() {
+        return timeOfAdding;
+    }
+
+    public void setTimeOfAdding(LocalDateTime timeOfAdding) {
+        this.timeOfAdding = timeOfAdding;
     }
 }

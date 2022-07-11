@@ -3,6 +3,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @WebServlet("imageUpload")
 @MultipartConfig
@@ -23,8 +24,9 @@ public class AddingImageServlet extends HttpServlet {
     @Override
     protected void doPost(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, IOException {
         final ImageAddingFormDto imageAddingFormDto = new ImageAddingFormDto();
-        imageAddingFormDto.setImageName(req.getParameter("imageName"));
+        imageAddingFormDto.setName(req.getParameter("imageName"));
         imageAddingFormDto.setKey(amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()));
+        imageAddingFormDto.setTimeOfAdding(LocalDateTime.now());
         imageService.addToDB(imageAddingFormDto);
         resp.sendRedirect("index.jsp");
     }

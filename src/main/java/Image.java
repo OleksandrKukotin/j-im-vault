@@ -1,14 +1,25 @@
+import java.time.LocalDateTime;
+
 public class Image {
 
-    private String imageName;
+    private String name;
+    private LocalDateTime timeOfCreating;
     private String key;
 
-    public String getImageName() {
-        return imageName;
+    public String getName() {
+        return name;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getTimeOfCreating() {
+        return timeOfCreating;
+    }
+
+    public void setTimeOfCreating(LocalDateTime timeOfCreating) {
+        this.timeOfCreating = timeOfCreating;
     }
 
     public String getKey() {

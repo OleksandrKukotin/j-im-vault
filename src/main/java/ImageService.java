@@ -18,7 +18,8 @@ public class ImageService {
 
     private Image createImage(ImageAddingFormDto imageAddingFormDto) {
         final Image image = new Image();
-        image.setImageName(imageAddingFormDto.getImageName());
+        image.setName(imageAddingFormDto.getName());
+        image.setTimeOfCreating(imageAddingFormDto.getTimeOfAdding());
         image.setKey(imageAddingFormDto.getKey());
         return image;
     }

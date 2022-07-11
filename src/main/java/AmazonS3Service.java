@@ -37,8 +37,4 @@ public class AmazonS3Service {
         S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
         return s3ObjectInputStream.getDelegateStream().readAllBytes();
     }
-
-    private void removeFromS3(String key) {
-        this.s3.deleteObject(BUCKET_NAME, key);
-    }
 }
