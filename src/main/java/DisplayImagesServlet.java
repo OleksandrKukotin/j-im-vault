@@ -28,4 +28,9 @@ public class DisplayImagesServlet extends HttpServlet {
         req.setAttribute("imagesList", imageDisplayDtoList);
         req.getRequestDispatcher("imagesPreview.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
 }

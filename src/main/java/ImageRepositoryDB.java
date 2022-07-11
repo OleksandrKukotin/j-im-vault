@@ -3,6 +3,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,8 @@ public class ImageRepositoryDB implements ImageRepository {
             List<ImageDisplayDto> imageDisplayDTOList = new ArrayList<>();
             while (resultSet.next()) {
                 ImageDisplayDto imageDisplayDTO = new ImageDisplayDto();
-                imageDisplayDTO.setImageName(resultSet.getString("name"));
+                imageDisplayDTO.setName(resultSet.getString("name"));
+                imageDisplayDTO.setTime(resultSet.getTimestamp("time").toLocalDateTime());
                 imageDisplayDTO.setKey(resultSet.getString("key"));
                 imageDisplayDTOList.add(imageDisplayDTO);
             }

@@ -1,8 +1,13 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class ImageDisplayDto {
 
     private String base64Image;
-    private String imageName;
+    private String name;
+    private LocalDateTime time;
     private String key;
+    private final static String TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
 
     public String getBase64Image() {
         return base64Image;
@@ -12,12 +17,20 @@ public class ImageDisplayDto {
         this.base64Image = base64Image;
     }
 
-    public String getImageName() {
-        return imageName;
+    public String getName() {
+        return name;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public String getTime() {
+        return time.format(DateTimeFormatter.ofPattern(TIME_FORMAT));
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getKey() {
