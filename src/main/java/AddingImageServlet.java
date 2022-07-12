@@ -27,6 +27,7 @@ public class AddingImageServlet extends HttpServlet {
         imageAddingFormDto.setName(req.getParameter("imageName"));
         imageAddingFormDto.setKey(amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()));
         imageAddingFormDto.setTimeOfAdding(LocalDateTime.now());
+        imageAddingFormDto.setSize(req.getPart("imageFile").getInputStream().readAllBytes().length);
         imageService.addToDB(imageAddingFormDto);
         if (resp.getStatus() == 200) {
             req.setAttribute("message", "Image successful uploaded!");

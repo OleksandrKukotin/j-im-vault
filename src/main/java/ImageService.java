@@ -21,6 +21,7 @@ public class ImageService {
         image.setName(imageAddingFormDto.getName());
         image.setTimeOfCreating(imageAddingFormDto.getTimeOfAdding());
         image.setKey(imageAddingFormDto.getKey());
+        image.setSize(imageAddingFormDto.getSize());
         return image;
     }
 }

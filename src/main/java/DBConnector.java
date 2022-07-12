@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class DBConnector {
 
-    private static final String CREATE_IMAGES_ADDR_TABLE = "CREATE TABLE IF NOT EXISTS images (id bigserial PRIMARY KEY, name varchar(255), time timestamp, key varchar(255))";
+    private static final String CREATE_IMAGES_ADDR_TABLE = "CREATE TABLE IF NOT EXISTS images (id bigserial PRIMARY KEY, name varchar(255), int size, time timestamp, key varchar(255))";
     private static final String APP_PROPERTIES_FILENAME = "app.properties";
     private static final String PG_DEFAULT_VALUE = "postgres";
     private static final int DATASOURCE_DEFAULT_PORT = 5434;

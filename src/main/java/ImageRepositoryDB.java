@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ImageRepositoryDB implements ImageRepository {
 
-    private final static String INSERT_INTO_IMAGES = "INSERT INTO images (name, time, key) VALUES (?, ?, ?)";
+    private final static String INSERT_INTO_IMAGES = "INSERT INTO images (name, time, key, size) VALUES (?, ?, ?, ?)";
     private final static String SELECT_ALL_IMAGES = "SELECT * FROM images";
     private final DataSource dataSource;
 
@@ -24,6 +24,7 @@ public class ImageRepositoryDB implements ImageRepository {
             preparedStatement.setString(1, img.getName());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(img.getTimeOfCreating()));
             preparedStatement.setString(3, img.getKey());
+            preparedStatement.setInt(4, img.getSize());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

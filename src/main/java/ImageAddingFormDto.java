@@ -5,6 +5,7 @@ public class ImageAddingFormDto {
     private String name;
     private String key;
     private LocalDateTime timeOfAdding;
+    private int size;
 
     public String getName() {
         return name;
@@ -28,5 +29,13 @@ public class ImageAddingFormDto {
 
     public void setTimeOfAdding(LocalDateTime timeOfAdding) {
         this.timeOfAdding = timeOfAdding;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
