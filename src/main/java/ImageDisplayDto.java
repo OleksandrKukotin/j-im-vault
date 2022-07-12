@@ -7,6 +7,7 @@ public class ImageDisplayDto {
     private String name;
     private LocalDateTime time;
     private String key;
+    private int size;
     private final static String TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
 
     public String getBase64Image() {
@@ -39,5 +40,13 @@ public class ImageDisplayDto {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }

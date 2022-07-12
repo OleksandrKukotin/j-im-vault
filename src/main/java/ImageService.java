@@ -12,8 +12,8 @@ public class ImageService {
         imageRepository.save(createImage(imageAddingFormDto));
     }
 
-    public List<ImageDisplayDto> getAll() {
-        return imageRepository.getAll();
+    public List<ImageDisplayDto> getGlobalTop() {
+        return imageRepository.getGlobalTop();
     }
 
     private Image createImage(ImageAddingFormDto imageAddingFormDto) {

@@ -4,6 +4,7 @@
     <thead>
     <tr>
         <th>Name</th>
+        <th>Size</th>
         <th>Date</th>
         <th>Image</th>
     </tr>
@@ -11,9 +12,10 @@
     <c:forEach items = "${imagesList}" var = "image">
         <tr>
             <td> ${image.getName()} </td>
+            <td> ${image.getSize()/1000} MB </td>
             <td> ${image.getTime()} </td>
             <td>
-                <img src="data:image/jpg;base64,${image.getBase64Image()}" width="300" height="100" alt="${image.getName()}"/>
+                <img src="data:image/jpg;base64,${image.getBase64Image()}" style="max-height: 100px; max-width: 100px" alt="${image.getName()}"/>
             </td>
         </tr>
     </c:forEach>

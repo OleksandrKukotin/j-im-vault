@@ -37,6 +37,9 @@
         <a href="/imageUpload"> Upload Images </a>
     </li>
     <li class="menu-item">
-        <a href="/imagesPreview"> View Images </a>
+        <a href="/imagesPreview"> Global TOP </a>
+    </li>
+    <li class="menu-item">
+        <a href="#"> Search </a>
     </li>
 </menu>

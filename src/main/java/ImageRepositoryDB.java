@@ -3,15 +3,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageRepositoryDB implements ImageRepository {
 
     private final static String INSERT_INTO_IMAGES = "INSERT INTO images (name, time, key, size) VALUES (?, ?, ?, ?)";
-    private final static String SELECT_ALL_IMAGES = "SELECT * FROM images";
+    private final static String SELECT_ALL_ORDER_BY_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
     private final DataSource dataSource;
 
     public ImageRepositoryDB(DataSource dataSource) {
@@ -32,8 +30,8 @@ public class ImageRepositoryDB implements ImageRepository {
     }
 
     @Override
-    public List<ImageDisplayDto> getAll() {
-        try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_IMAGES)) {
+    public List<ImageDisplayDto> getGlobalTop() {
+        try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_ORDER_BY_BY_SIZE_DESC)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             List<ImageDisplayDto> imageDisplayDTOList = new ArrayList<>();
             while (resultSet.next()) {
@@ -41,6 +39,7 @@ public class ImageRepositoryDB implements ImageRepository {
                 imageDisplayDTO.setName(resultSet.getString("name"));
                 imageDisplayDTO.setTime(resultSet.getTimestamp("time").toLocalDateTime());
                 imageDisplayDTO.setKey(resultSet.getString("key"));
+                imageDisplayDTO.setSize(resultSet.getInt("size"));
                 imageDisplayDTOList.add(imageDisplayDTO);
             }
             return imageDisplayDTOList;
