@@ -16,6 +16,10 @@ public class ImageService {
         return imageRepository.getGlobalTop();
     }
 
+    public List<ImageDisplayDto> getTopBySizeRange(int min, int max) {
+        return imageRepository.getTopBySizeRange(min, max);
+    }
+
     private Image createImage(ImageAddingFormDto imageAddingFormDto) {
         final Image image = new Image();
         image.setName(imageAddingFormDto.getName());

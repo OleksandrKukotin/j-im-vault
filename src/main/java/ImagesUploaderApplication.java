@@ -26,6 +26,9 @@ public class ImagesUploaderApplication {
         tomcat.addServlet(context.getPath(), "DisplayImages", new DisplayImagesServlet(imageService));
         context.addServletMappingDecoded("/imagesPreview", "DisplayImages");
 
+        tomcat.addServlet(context.getPath(), "SearchBySizeRange", new SearchBySizeRangeServlet(imageService));
+        context.addServletMappingDecoded("/searchBySizeRange", "SearchBySizeRange");
+
         tomcat.getConnector();
         tomcat.start();
         tomcat.getServer().await();
