@@ -28,6 +28,11 @@ public class AddingImageServlet extends HttpServlet {
         imageAddingFormDto.setKey(amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()));
         imageAddingFormDto.setTimeOfAdding(LocalDateTime.now());
         imageService.addToDB(imageAddingFormDto);
-        resp.sendRedirect("index.jsp");
+        if (resp.getStatus() == 200) {
+            req.setAttribute("message", "Image successful uploaded!");
+        } else {
+            req.setAttribute("message", "There is error during uploading! Please, try again!");
+        }
+        req.getRequestDispatcher("uploadStatus.jsp").forward(req, resp);
     }
 }
