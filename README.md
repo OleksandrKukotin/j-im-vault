@@ -7,7 +7,7 @@ Application for upload and store images in AWS S3 storage.
 ## How to run
 - *PostgreSQL*
 1. Install Docker
-2. Run docker-compose file in dev/postgresql
+2. Run commands ```docker compose create``` and after ```docker compose start```  in terminal opened in the _dev/postgresql_ directory
 3. Tip: Be careful with a port number in the docker-compose and in the DBConnector class - they must be the same!
 - *AWS S3 Service*
 1. Register and confirm account in https://aws.amazon.com/
