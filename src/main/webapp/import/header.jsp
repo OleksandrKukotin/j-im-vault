@@ -28,7 +28,6 @@
             padding: .5em;
         }
     </style>
-    <%--    <script src="js/table.js"></script>--%>
 </head>
 <body>
 <h1> Images Uploader </h1>

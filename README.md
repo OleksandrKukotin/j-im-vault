@@ -13,7 +13,7 @@ Application for upload and store images in AWS S3 storage.
 1. Register and confirm account in https://aws.amazon.com/
 2. Sign in to the AWS Management Console
 3. Create an access key in IAM service
-4. Paste your access and secret key to code or as environment variables
+4. Paste your access and secret key as environment variables in runConfiguration
 5. Create a bucket in S3 service
 6. Paste to code name of bucket and his region using Regions class
 - *Run the code*

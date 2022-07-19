@@ -8,7 +8,7 @@
         </li>
         <li class="form-field">
             <label for="max">Maximal size:</label>
-            <input type="number" id="max" name="max" min="0" max="2097.152" value="2097152" size="25"/>
+            <input type="number" id="max" name="max" min="0" max="2097.152" value="2097" size="25"/>
         </li>
         <li class="form-field">
             <label for="min">Minimal size:</label>
