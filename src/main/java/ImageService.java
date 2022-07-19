@@ -12,11 +12,11 @@ public class ImageService {
         imageRepositoryImplementation.save(image);
     }
 
-    public List<ImageDisplayDto> getGlobalTop() {
+    public List<ImageDto> getGlobalTop() {
         return imageRepositoryImplementation.getGlobalTop();
     }
 
-    public List<ImageDisplayDto> getTopBySizeRange(int min, int max) {
+    public List<ImageDto> getTopBySizeRange(int min, int max) {
         return imageRepositoryImplementation.getTopBySizeRange(min, max);
     }
 }

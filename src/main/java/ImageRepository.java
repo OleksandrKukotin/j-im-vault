@@ -4,7 +4,7 @@ public interface ImageRepository {
 
     void save(Image image);
 
-    List<ImageDisplayDto> getGlobalTop();
+    List<ImageDto> getGlobalTop();
 
-    List<ImageDisplayDto> getTopBySizeRange(int min, int max);
+    List<ImageDto> getTopBySizeRange(int from, int to);
 }

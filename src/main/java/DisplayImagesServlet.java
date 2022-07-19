@@ -20,12 +20,11 @@ public class DisplayImagesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<ImageDisplayDto> imageDisplayDtoList = imageService.getGlobalTop();
-        for (ImageDisplayDto dto : imageDisplayDtoList) {
-            String base64Image = Base64.getEncoder().encodeToString(amazonS3Service.getImageAsBytes(dto.getKey()));
-            dto.setBase64Image(base64Image);
+        List<ImageDto> imageDtoList = imageService.getGlobalTop();
+        for (ImageDto dto : imageDtoList) {
+            dto.setBase64Image(Base64.getEncoder().encodeToString(amazonS3Service.getImageAsBytes(dto.getS3ObjectKey())));
         }
-        req.setAttribute("imagesList", imageDisplayDtoList);
+        req.setAttribute("imagesList", imageDtoList);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
     }
 

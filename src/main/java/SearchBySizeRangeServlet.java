@@ -25,13 +25,13 @@ public class SearchBySizeRangeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<ImageDisplayDto> imageDisplayDtoList = imageService.getTopBySizeRange(Integer.parseInt(req.getParameter("min")),
+        List<ImageDto> imageDtoList = imageService.getTopBySizeRange(Integer.parseInt(req.getParameter("min")),
             Integer.parseInt(req.getParameter("max")));
-        for (ImageDisplayDto dto : imageDisplayDtoList) {
-            String base64Image = Base64.getEncoder().encodeToString(amazonS3Service.getImageAsBytes(dto.getKey()));
+        for (ImageDto dto : imageDtoList) {
+            String base64Image = Base64.getEncoder().encodeToString(amazonS3Service.getImageAsBytes(dto.getS3ObjectKey()));
             dto.setBase64Image(base64Image);
         }
-        req.setAttribute("imagesList", imageDisplayDtoList);
+        req.setAttribute("imagesList", imageDtoList);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
     }
 }

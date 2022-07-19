@@ -13,7 +13,7 @@
         <tr>
             <td> ${image.getName()} </td>
             <td> ${image.getSize()/1000} KB</td>
-            <td> ${image.getTime()} </td>
+            <td> ${image.getCreatingTimestamp()} </td>
             <td>
                 <img src="data:image/jpg;base64,${image.getBase64Image()}" style="max-height: 100px; max-width: 100px" alt="${image.getName()}"/>
             </td>

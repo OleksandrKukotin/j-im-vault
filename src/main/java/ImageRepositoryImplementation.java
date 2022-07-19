@@ -1,5 +1,4 @@
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,7 @@ public class ImageRepositoryImplementation implements ImageRepository {
 
     private static final String INSERT_INTO_IMAGES = "INSERT INTO images (name, time, key, size) VALUES (?, ?, ?, ?)";
     private static final String SELECT_ALL_ORDER_BY_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
-    private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ";
+    private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ? AND ? ORDER BY size DESC";
     private final DataSource dataSource;
 
     public ImageRepositoryImplementation(DataSource dataSource) {
@@ -32,37 +31,37 @@ public class ImageRepositoryImplementation implements ImageRepository {
     }
 
     @Override
-    public List<ImageDisplayDto> getGlobalTop() {
+    public List<ImageDto> getGlobalTop() {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_ORDER_BY_BY_SIZE_DESC)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-            return getImageDisplayDtos(resultSet);
+            return getImageDtos(resultSet);
         } catch (SQLException e) {
             return new ArrayList<>();
         }
     }
 
     @Override
-    public List<ImageDisplayDto> getTopBySizeRange(int min, int max) {
-        try (final Connection connection = dataSource.getConnection()) {
-            String query = SELECT_BY_SIZE_RANGE + min*1000 + " AND " + max*1000;
-            query += " ORDER BY size DESC";
-            ResultSet resultSet = connection.prepareStatement(query).executeQuery();
-            return getImageDisplayDtos(resultSet);
+    public List<ImageDto> getTopBySizeRange(int from, int to) {
+        try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_BY_SIZE_RANGE)) {
+            preparedStatement.setInt(1, from*1000);
+            preparedStatement.setInt(2, to*1000);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return getImageDtos(resultSet);
         } catch (SQLException e) {
             return new ArrayList<>();
         }
     }
 
-    private List<ImageDisplayDto> getImageDisplayDtos(ResultSet resultSet) throws SQLException {
-        List<ImageDisplayDto> imageDisplayDTOList = new ArrayList<>();
+    private List<ImageDto> getImageDtos(ResultSet resultSet) throws SQLException {
+        List<ImageDto> imageDTOList = new ArrayList<>();
         while (resultSet.next()) {
-            ImageDisplayDto imageDisplayDTO = new ImageDisplayDto();
-            imageDisplayDTO.setName(resultSet.getString("name"));
-            imageDisplayDTO.setTime(resultSet.getTimestamp("time").toLocalDateTime());
-            imageDisplayDTO.setKey(resultSet.getString("key"));
-            imageDisplayDTO.setSize(resultSet.getInt("size"));
-            imageDisplayDTOList.add(imageDisplayDTO);
+            imageDTOList.add(new ImageDto(
+                resultSet.getTimestamp("time").toLocalDateTime(),
+                resultSet.getString("name"),
+                resultSet.getString("key"),
+                resultSet.getInt("size")
+            ));
         }
-        return imageDisplayDTOList;
+        return imageDTOList;
     }
 }
