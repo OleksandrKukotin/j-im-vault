@@ -2,40 +2,31 @@ import java.time.LocalDateTime;
 
 public class Image {
 
-    private String name;
-    private LocalDateTime timeOfCreating;
-    private String key;
-    private int size;
+    private final String name;
+    private final LocalDateTime creatingTimestamp;
+    private final String S3ObjectKey;
+    private final int size;
+
+    public Image(String name, LocalDateTime creatingTimestamp, String S3ObjectKey, int size) {
+        this.name = name;
+        this.creatingTimestamp = creatingTimestamp;
+        this.S3ObjectKey = S3ObjectKey;
+        this.size = size;
+    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public LocalDateTime getCreatingTimestamp() {
+        return creatingTimestamp;
     }
 
-    public LocalDateTime getTimeOfCreating() {
-        return timeOfCreating;
-    }
-
-    public void setTimeOfCreating(LocalDateTime timeOfCreating) {
-        this.timeOfCreating = timeOfCreating;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
+    public String getS3ObjectKey() {
+        return S3ObjectKey;
     }
 
     public int getSize() {
         return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 }

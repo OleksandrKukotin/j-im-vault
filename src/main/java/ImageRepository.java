@@ -2,7 +2,7 @@ import java.util.List;
 
 public interface ImageRepository {
 
-    void save(Image img);
+    void save(Image image);
 
     List<ImageDisplayDto> getGlobalTop();
 

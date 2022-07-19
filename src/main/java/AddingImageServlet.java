@@ -23,12 +23,12 @@ public class AddingImageServlet extends HttpServlet {
 
     @Override
     protected void doPost(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, IOException {
-        final ImageAddingFormDto imageAddingFormDto = new ImageAddingFormDto();
-        imageAddingFormDto.setName(req.getParameter("imageName"));
-        imageAddingFormDto.setKey(amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()));
-        imageAddingFormDto.setTimeOfAdding(LocalDateTime.now());
-        imageAddingFormDto.setSize(req.getPart("imageFile").getInputStream().readAllBytes().length);
-        imageService.addToDB(imageAddingFormDto);
+        imageService.createInRepository(new Image(
+            req.getParameter("imageName"),
+            LocalDateTime.now(),
+            amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()),
+            req.getPart("imageFile").getInputStream().readAllBytes().length
+        ));
         if (resp.getStatus() == 200) {
             req.setAttribute("message", "Image successful uploaded!");
         } else {

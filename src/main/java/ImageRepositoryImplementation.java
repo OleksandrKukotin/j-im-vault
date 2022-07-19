@@ -7,24 +7,24 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageRepositoryDB implements ImageRepository {
+public class ImageRepositoryImplementation implements ImageRepository {
 
-    private final static String INSERT_INTO_IMAGES = "INSERT INTO images (name, time, key, size) VALUES (?, ?, ?, ?)";
-    private final static String SELECT_ALL_ORDER_BY_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
-    private final static String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ";
+    private static final String INSERT_INTO_IMAGES = "INSERT INTO images (name, time, key, size) VALUES (?, ?, ?, ?)";
+    private static final String SELECT_ALL_ORDER_BY_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
+    private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ";
     private final DataSource dataSource;
 
-    public ImageRepositoryDB(DataSource dataSource) {
+    public ImageRepositoryImplementation(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
     @Override
-    public void save(Image img) {
+    public void save(Image image) {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(INSERT_INTO_IMAGES)) {
-            preparedStatement.setString(1, img.getName());
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(img.getTimeOfCreating()));
-            preparedStatement.setString(3, img.getKey());
-            preparedStatement.setInt(4, img.getSize());
+            preparedStatement.setString(1, image.getName());
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(image.getCreatingTimestamp()));
+            preparedStatement.setString(3, image.getS3ObjectKey());
+            preparedStatement.setInt(4, image.getSize());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

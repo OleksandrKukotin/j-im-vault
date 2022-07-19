@@ -2,30 +2,21 @@ import java.util.List;
 
 public class ImageService {
 
-    private final ImageRepository imageRepository;
+    private final ImageRepositoryImplementation imageRepositoryImplementation;
 
-    public ImageService(ImageRepository imageRepository) {
-        this.imageRepository = imageRepository;
+    public ImageService(ImageRepositoryImplementation imageRepositoryImplementation) {
+        this.imageRepositoryImplementation = imageRepositoryImplementation;
     }
 
-    public void addToDB(ImageAddingFormDto imageAddingFormDto) {
-        imageRepository.save(createImage(imageAddingFormDto));
+    public void createInRepository(Image image) {
+        imageRepositoryImplementation.save(image);
     }
 
     public List<ImageDisplayDto> getGlobalTop() {
-        return imageRepository.getGlobalTop();
+        return imageRepositoryImplementation.getGlobalTop();
     }
 
     public List<ImageDisplayDto> getTopBySizeRange(int min, int max) {
-        return imageRepository.getTopBySizeRange(min, max);
-    }
-
-    private Image createImage(ImageAddingFormDto imageAddingFormDto) {
-        final Image image = new Image();
-        image.setName(imageAddingFormDto.getName());
-        image.setTimeOfCreating(imageAddingFormDto.getTimeOfAdding());
-        image.setKey(imageAddingFormDto.getKey());
-        image.setSize(imageAddingFormDto.getSize());
-        return image;
+        return imageRepositoryImplementation.getTopBySizeRange(min, max);
     }
 }
