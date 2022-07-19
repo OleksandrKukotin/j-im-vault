@@ -16,6 +16,7 @@ ext {
 }
 
 dependencies {
+    // TODO: extract jstl (2.0.0 version) to 'ext' block above
     implementation 'io.openliberty.features:servlet-5.0:22.0.0.6'
     implementation 'io.openliberty.features:pages-3.0:22.0.0.6'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:2.0.0'

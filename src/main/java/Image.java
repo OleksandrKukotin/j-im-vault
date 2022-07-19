@@ -1,10 +1,12 @@
 import java.time.LocalDateTime;
 
+// TODO: get rid of setters, use constructor for fields initialization
+// TODO: make fields as 'final'
 public class Image {
 
     private String name;
-    private LocalDateTime timeOfCreating;
-    private String key;
+    private LocalDateTime timeOfCreating; // TODO: rename to creatingTimestamp
+    private String key; // TODO: rename to more clearly
     private int size;
 
     public String getName() {

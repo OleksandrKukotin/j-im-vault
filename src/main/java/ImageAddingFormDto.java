@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 
+// TODO: don't duplicate, remove ImageAddingFormDto and use Image class instead
 public class ImageAddingFormDto {
 
     private String name;

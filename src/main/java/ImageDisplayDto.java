@@ -1,14 +1,18 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+// TODO: Image or Display? Rename to ImageDto
+// TODO: Get rid of setters, use constructor for initialization
 public class ImageDisplayDto {
 
-    private String base64Image;
+    private String base64Image; // TODO: get rid of unused fields
     private String name;
     private LocalDateTime time;
-    private String key;
+    private String key; // TODO: rename to more clearly
     private int size;
-    private final static String TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
+
+    // TODO: constants need to be first in fields list (PAY ATTENTION on Java conventions!!)
+    private final static String TIME_FORMAT = "dd.MM.yyyy HH:mm:ss"; // TODO: reorder modifiers (static final)
 
     public String getBase64Image() {
         return base64Image;
