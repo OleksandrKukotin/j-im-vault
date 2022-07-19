@@ -6,6 +6,7 @@
 
 ### IntelliJ IDEA ###
 .idea
+!.idea/runConfigurations/ImagesUploaderApplication.xml
 *.iws
 *.iml
 *.ipr
