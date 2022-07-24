@@ -11,12 +11,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+// TODO: extract ALL strings to constants (ctrl+alt+C)
 public class AmazonS3Service {
 
-    private AmazonS3 s3;
-    private final static String BUCKET_NAME = System.getenv().getOrDefault("bucket", "bucket");
+    private AmazonS3 s3; // TODO: it can be final
+
+    private final static String BUCKET_NAME = System.getenv().getOrDefault("bucket", "bucket"); // TODO: reorder modifiers, also constants first - above fields
 
     public AmazonS3Service() {
+        // TODO: rename to awsCredentials
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(
             System.getenv().getOrDefault("accessKey", "accessKey"),
             System.getenv().getOrDefault("secretKey", "secretKey"));
@@ -32,9 +35,9 @@ public class AmazonS3Service {
         return objectKey;
     }
 
-    protected byte[] getImageAsBytes(String key) throws IOException {
+    protected byte[] getImageAsBytes(String key) throws IOException { // TODO: DONT use "throws IOException" in methods signature, handle exceptions in this place (rethrowing or logging) - the same about another places in code
         S3Object s3Object = this.s3.getObject(BUCKET_NAME, key);
-        S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent();
+        S3ObjectInputStream s3ObjectInputStream = s3Object.getObjectContent(); // TODO: inline this variable
         return s3ObjectInputStream.getDelegateStream().readAllBytes();
     }
 }
