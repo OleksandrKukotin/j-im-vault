@@ -11,7 +11,7 @@ public class ImagesUploaderApplication {
 
     public static void main(String[] args) throws LifecycleException {
         final DBConnector dbConnector = new DBConnector();
-        final ImageRepositoryImplementation imageRepository = new ImageRepositoryImplementation(dbConnector.get());
+        final ImageRepositoryImpl imageRepository = new ImageRepositoryImpl(dbConnector.get());
         final ImageService imageService = new ImageService(imageRepository);
 
         final Tomcat tomcat = new Tomcat();

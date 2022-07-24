@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -20,9 +21,12 @@ public class DisplayImagesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<ImageDto> imageDtoList = imageService.getGlobalTop();
-        for (ImageDto dto : imageDtoList) {
-            dto.setBase64Image(Base64.getEncoder().encodeToString(amazonS3Service.getImageAsBytes(dto.getS3ObjectKey())));
+        List<ImageDto> imageDtoList = new ArrayList<>();
+        for (Image image : imageService.getGlobalTop()) {
+            imageDtoList.add(new ImageDto(
+                image,
+                amazonS3Service.getImageAsBase64String(image.getS3ObjectKey())
+            ));
         }
         req.setAttribute("imagesList", imageDtoList);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);

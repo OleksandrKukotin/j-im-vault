@@ -8,11 +8,11 @@
         </li>
         <li class="form-field">
             <label for="max">Maximal size:</label>
-            <input type="number" id="max" name="max" min="0" max="2097.152" value="2097" size="25"/>
+            <input type="number" id="max" name="to" min="0" max="2097.152" value="2097" size="25"/>
         </li>
         <li class="form-field">
             <label for="min">Minimal size:</label>
-            <input type="number" id="min" name="min" min="0" max="2097.151" value="0" size="25"/>
+            <input type="number" id="min" name="from" min="0" max="2097.151" value="0" size="25"/>
         </li>
         <li class="form-field">
             <input type="submit" name="Submit" value="Search"/>

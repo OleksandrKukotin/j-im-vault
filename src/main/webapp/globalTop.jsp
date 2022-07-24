@@ -9,13 +9,13 @@
         <th>Image</th>
     </tr>
     </thead>
-    <c:forEach items="${imagesList}" var="image">
+    <c:forEach items="${imagesList}" var="imageDto">
         <tr>
-            <td> ${image.getName()} </td>
-            <td> ${image.getSize()/1000} KB</td>
-            <td> ${image.getCreatingTimestamp()} </td>
+            <td> ${imageDto.getName()} </td>
+            <td> ${imageDto.getSize()/1000} KB</td>
+            <td> ${imageDto.getFormattedCreatingTimestamp()} </td>
             <td>
-                <img src="data:image/jpg;base64,${image.getBase64Image()}" style="max-height: 100px; max-width: 100px" alt="${image.getName()}"/>
+                <img src="data:image/jpg;base64,${imageDto.getBase64Image()}" style="max-height: 100px; max-width: 100px" alt="${imageDto.getName()}"/>
             </td>
         </tr>
     </c:forEach>

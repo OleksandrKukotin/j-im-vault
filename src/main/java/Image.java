@@ -4,13 +4,13 @@ public class Image {
 
     private final String name;
     private final LocalDateTime creatingTimestamp;
-    private final String S3ObjectKey;
+    private final String s3ObjectKey;
     private final int size;
 
     public Image(String name, LocalDateTime creatingTimestamp, String S3ObjectKey, int size) {
         this.name = name;
         this.creatingTimestamp = creatingTimestamp;
-        this.S3ObjectKey = S3ObjectKey;
+        this.s3ObjectKey = S3ObjectKey;
         this.size = size;
     }
 
@@ -23,7 +23,7 @@ public class Image {
     }
 
     public String getS3ObjectKey() {
-        return S3ObjectKey;
+        return s3ObjectKey;
     }
 
     public int getSize() {

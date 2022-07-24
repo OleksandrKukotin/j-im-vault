@@ -23,7 +23,7 @@ public class AddingImageServlet extends HttpServlet {
 
     @Override
     protected void doPost(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, IOException {
-        imageService.createInRepository(new Image(
+        imageService.saveImage(new Image(
             req.getParameter("imageName"),
             LocalDateTime.now(),
             amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()),

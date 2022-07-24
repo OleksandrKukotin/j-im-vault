@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -25,11 +26,17 @@ public class SearchBySizeRangeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<ImageDto> imageDtoList = imageService.getTopBySizeRange(Integer.parseInt(req.getParameter("min")),
-            Integer.parseInt(req.getParameter("max")));
-        for (ImageDto dto : imageDtoList) {
-            String base64Image = Base64.getEncoder().encodeToString(amazonS3Service.getImageAsBytes(dto.getS3ObjectKey()));
-            dto.setBase64Image(base64Image);
+        List<Image> imagesList = imageService.getTopBySizeRange(
+            Integer.parseInt(req.getParameter("from")),
+            Integer.parseInt(req.getParameter("to"))
+        );
+        List<ImageDto> imageDtoList = new ArrayList<>();
+
+        for (Image image : imagesList) {
+            imageDtoList.add(new ImageDto(
+                image,
+                amazonS3Service.getImageAsBase64String(image.getS3ObjectKey())
+            ));
         }
         req.setAttribute("imagesList", imageDtoList);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);

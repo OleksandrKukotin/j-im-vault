@@ -2,21 +2,21 @@ import java.util.List;
 
 public class ImageService {
 
-    private final ImageRepositoryImplementation imageRepositoryImplementation;
+    private final ImageRepositoryImpl imageRepositoryImpl;
 
-    public ImageService(ImageRepositoryImplementation imageRepositoryImplementation) {
-        this.imageRepositoryImplementation = imageRepositoryImplementation;
+    public ImageService(ImageRepositoryImpl imageRepositoryImpl) {
+        this.imageRepositoryImpl = imageRepositoryImpl;
     }
 
-    public void createInRepository(Image image) {
-        imageRepositoryImplementation.save(image);
+    public void saveImage(Image image) {
+        imageRepositoryImpl.save(image);
     }
 
-    public List<ImageDto> getGlobalTop() {
-        return imageRepositoryImplementation.getGlobalTop();
+    public List<Image> getGlobalTop() {
+        return imageRepositoryImpl.getGlobalTop();
     }
 
-    public List<ImageDto> getTopBySizeRange(int min, int max) {
-        return imageRepositoryImplementation.getTopBySizeRange(min, max);
+    public List<Image> getTopBySizeRange(int from, int to) {
+        return imageRepositoryImpl.getTopBySizeRange(from, to);
     }
 }
