@@ -13,6 +13,7 @@ public class ImageRepositoryImpl implements ImageRepository {
     private static final String INSERT_INTO_IMAGES = "INSERT INTO images (name, time, key, size) VALUES (?, ?, ?, ?)";
     private static final String SELECT_ALL_ORDER_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
     private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ? AND ? ORDER BY size DESC";
+    private static final String ERROR_MESSAGE = "An error occurred during executing query or setting up connection";
     private static final Logger log = Logger.getLogger(ImageRepositoryImpl.class);
     private final DataSource dataSource;
 
@@ -29,7 +30,7 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.setInt(4, image.getSize());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new ConnectionOrQueryExecutionException();
+            log.error(ERROR_MESSAGE);
         }
     }
 
@@ -38,7 +39,7 @@ public class ImageRepositoryImpl implements ImageRepository {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_ORDER_BY_SIZE_DESC)) {
             return getImages(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            throw new ConnectionOrQueryExecutionException();
+            return catchConnectionOrQueryExecutionException(e);
         }
     }
 
@@ -49,7 +50,7 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.setInt(2, to * 1000);
             return getImages(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            throw new ConnectionOrQueryExecutionException();
+            return catchConnectionOrQueryExecutionException(e);
         }
     }
 
@@ -66,11 +67,8 @@ public class ImageRepositoryImpl implements ImageRepository {
         return imagesList;
     }
 
-    private static final class ConnectionOrQueryExecutionException extends RuntimeException {
-        private static final String ERROR_MESSAGE = "An error occurred during executing query or setting up connection";
-        public ConnectionOrQueryExecutionException() {
-            super(ERROR_MESSAGE);
-            log.error(ERROR_MESSAGE);
-        }
+    private List<Image> catchConnectionOrQueryExecutionException(Exception e) {
+        log.error(ERROR_MESSAGE, e);
+        return new ArrayList<>();
     }
 }

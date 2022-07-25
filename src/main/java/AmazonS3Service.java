@@ -41,7 +41,7 @@ public class AmazonS3Service {
             return Base64.getEncoder().encodeToString(s3ObjectInputStream.getDelegateStream().readAllBytes());
         } catch (IOException e) {
             log.error("An error occurred while reading a byte array");
-            return null;
+            return "";
         }
     }
 }

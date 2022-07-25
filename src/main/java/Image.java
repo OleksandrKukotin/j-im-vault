@@ -7,10 +7,10 @@ public class Image {
     private final String s3ObjectKey;
     private final int size;
 
-    public Image(String name, LocalDateTime creatingTimestamp, String S3ObjectKey, int size) {
+    public Image(String name, LocalDateTime creatingTimestamp, String s3ObjectKey, int size) {
         this.name = name;
         this.creatingTimestamp = creatingTimestamp;
-        this.s3ObjectKey = S3ObjectKey;
+        this.s3ObjectKey = s3ObjectKey;
         this.size = size;
     }
 

@@ -31,14 +31,18 @@ public class SearchBySizeRangeServlet extends HttpServlet {
             Integer.parseInt(req.getParameter("to"))
         );
         List<ImageDto> imageDtoList = new ArrayList<>();
-
-        for (Image image : imagesList) {
-            imageDtoList.add(new ImageDto(
-                image,
-                amazonS3Service.getImageAsBase64String(image.getS3ObjectKey())
-            ));
+        if (!imagesList.isEmpty()){
+            for (Image image : imagesList) {
+                imageDtoList.add(new ImageDto(
+                    image,
+                    amazonS3Service.getImageAsBase64String(image.getS3ObjectKey())
+                ));
+            }
+        } else {
+            req.setAttribute("notFoundMessage", "Images were not found in this range =(");
+            req.setAttribute("notFoundStyle", "style = \"display : none\"");
         }
-        req.setAttribute("imagesList", imageDtoList);
+        req.setAttribute("imageDtosList", imageDtoList);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
     }
 }
