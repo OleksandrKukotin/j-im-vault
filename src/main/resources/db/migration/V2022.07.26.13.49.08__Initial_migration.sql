@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS images (id bigserial, name varchar(255), time timestamp, key varchar(255), size integer);
