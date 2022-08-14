@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class AddingImageServlet extends HttpServlet {
 
     private final ImageService imageService;
+    // TODO: create AmazonS3Service inside ImagesUploaderApplication and inject in current class through constructor (same as ImageService)
     private final AmazonS3Service amazonS3Service = new AmazonS3Service();
 
     public AddingImageServlet(ImageService imageService) {
@@ -23,14 +24,15 @@ public class AddingImageServlet extends HttpServlet {
 
     @Override
     protected void doPost(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, IOException {
+        // TODO: extract "imageFile" to constant
         imageService.saveImage(new Image(
             req.getParameter("imageName"),
             LocalDateTime.now(),
             amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()),
             req.getPart("imageFile").getInputStream().readAllBytes().length
         ));
-        if (resp.getStatus() == 200) {
-            req.setAttribute("message", "Image successful uploaded!");
+        if (resp.getStatus() == 200) { // TODO: extract 200 to constant. Read about MAGIC NUMBERS anti-pattern
+            req.setAttribute("message", "Image successful uploaded!"); // TODO: extract "message" attribute name to constant
         } else {
             req.setAttribute("message", "There is error during uploading! Please, try again!");
         }

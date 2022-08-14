@@ -6,13 +6,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @WebServlet("searchBySizeRange")
 public class SearchBySizeRangeServlet extends HttpServlet {
 
     private final ImageService imageService;
+
+    // TODO: create AmazonS3Service inside ImagesUploaderApplication and inject in current class through constructor (same as ImageService)
     private final AmazonS3Service amazonS3Service = new AmazonS3Service();
 
     public SearchBySizeRangeServlet(ImageService imageService) {
@@ -31,7 +32,8 @@ public class SearchBySizeRangeServlet extends HttpServlet {
             Integer.parseInt(req.getParameter("to"))
         );
         List<ImageDto> imageDtoList = new ArrayList<>();
-        if (!imagesList.isEmpty()){
+        if (!imagesList.isEmpty()){ // TODO: dont forget about spaces, dont forget about java conventions
+            // TODO: Rewrite this loop to streams (I mean stream API)
             for (Image image : imagesList) {
                 imageDtoList.add(new ImageDto(
                     image,
@@ -42,7 +44,7 @@ public class SearchBySizeRangeServlet extends HttpServlet {
             req.setAttribute("notFoundMessage", "Images were not found in this range =(");
             req.setAttribute("notFoundStyle", "style = \"display : none\"");
         }
-        req.setAttribute("imageDtosList", imageDtoList);
+        req.setAttribute("imageDtosList", imageDtoList); // TODO: rename from imageDtosList to imageDtos
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
     }
 }

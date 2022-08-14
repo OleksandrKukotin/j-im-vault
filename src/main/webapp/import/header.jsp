@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Images Uploader</title>
-    <style>
+    <style> /* TODO: styles should be in separate fileName.css */
         menu {
             display: flex;
             justify-content: center;
@@ -24,6 +24,7 @@
             padding: 1em;
         }
 
+        /* TODO: remove redundant style */
         .form-field {
             padding: .5em;
         }

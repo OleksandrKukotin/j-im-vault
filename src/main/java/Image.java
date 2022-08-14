@@ -4,7 +4,7 @@ public class Image {
 
     private final String name;
     private final LocalDateTime creatingTimestamp;
-    private final String s3ObjectKey;
+    private final String s3ObjectKey; // TODO: rename s3ObjectKey to more informative
     private final int size;
 
     public Image(String name, LocalDateTime creatingTimestamp, String s3ObjectKey, int size) {

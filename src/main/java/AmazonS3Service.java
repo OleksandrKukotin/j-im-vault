@@ -16,9 +16,10 @@ public class AmazonS3Service {
 
     private static final String ACCESS_KEY_ENV = "accessKey";
     private static final String SECRET_KEY_ENV = "secretKey";
+    // TODO: extract "bucket" to constant please
     private static final String BUCKET_NAME = System.getenv().getOrDefault("bucket", "bucket");
-    private static final Logger log = Logger.getLogger(AmazonS3Service.class);
-    private final AmazonS3 s3;
+    private static final Logger log = Logger.getLogger(AmazonS3Service.class); // TODO: rename from log to logger
+    private final AmazonS3 s3; // TODO: rename to amazonS3 - java is not a ruby or a python
 
     public AmazonS3Service() {
         final BasicAWSCredentials awsCredentials = new BasicAWSCredentials(
@@ -31,7 +32,7 @@ public class AmazonS3Service {
     }
 
     public String addToS3(InputStream inputStream) {
-        final String objectKey = "key-" + UUID.randomUUID();
+        final String objectKey = "key-" + UUID.randomUUID(); // TODO: extract "key-" to constant and give informative naming
         this.s3.putObject(BUCKET_NAME, objectKey, inputStream, new ObjectMetadata());
         return objectKey;
     }
