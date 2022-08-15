@@ -10,10 +10,11 @@ import java.time.LocalDateTime;
 public class AddingImageServlet extends HttpServlet {
 
     private final ImageService imageService;
-    private final AmazonS3Service amazonS3Service = new AmazonS3Service();
+    private final AmazonS3Service amazonS3Service;
 
-    public AddingImageServlet(ImageService imageService) {
+    public AddingImageServlet(ImageService imageService, AmazonS3Service amazonS3Service) {
         this.imageService = imageService;
+        this.amazonS3Service = amazonS3Service;
     }
 
     @Override

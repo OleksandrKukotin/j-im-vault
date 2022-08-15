@@ -12,10 +12,11 @@ import java.util.List;
 public class DisplayImagesServlet extends HttpServlet {
 
     private final ImageService imageService;
-    private final AmazonS3Service amazonS3Service = new AmazonS3Service();
+    private final AmazonS3Service amazonS3Service;
 
-    public DisplayImagesServlet(ImageService imageService) {
+    public DisplayImagesServlet(ImageService imageService, AmazonS3Service amazonS3Service) {
         this.imageService = imageService;
+        this.amazonS3Service = amazonS3Service;
     }
 
     @Override

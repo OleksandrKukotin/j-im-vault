@@ -16,31 +16,32 @@ public class AmazonS3Service {
 
     private static final String ACCESS_KEY_ENV = "accessKey";
     private static final String SECRET_KEY_ENV = "secretKey";
-    private static final String BUCKET_NAME = System.getenv().getOrDefault("bucket", "bucket");
-    private static final Logger log = Logger.getLogger(AmazonS3Service.class);
-    private final AmazonS3 s3;
+    private static final String BUCKET_ENV = "bucket";
+    private static final String BUCKET_NAME = System.getenv().getOrDefault(BUCKET_ENV, BUCKET_ENV);
+    private static final Logger logger = Logger.getLogger(AmazonS3Service.class);
+    private final AmazonS3 amazonS3;
 
     public AmazonS3Service() {
         final BasicAWSCredentials awsCredentials = new BasicAWSCredentials(
             System.getenv().getOrDefault(ACCESS_KEY_ENV, ACCESS_KEY_ENV),
             System.getenv().getOrDefault(SECRET_KEY_ENV, SECRET_KEY_ENV));
-        this.s3 = AmazonS3ClientBuilder.standard()
+        this.amazonS3 = AmazonS3ClientBuilder.standard()
             .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
             .withRegion(Regions.EU_WEST_2)
             .build();
     }
 
     public String addToS3(InputStream inputStream) {
-        final String objectKey = "key-" + UUID.randomUUID();
-        this.s3.putObject(BUCKET_NAME, objectKey, inputStream, new ObjectMetadata());
+        final String objectKey = UUID.randomUUID().toString();
+        this.amazonS3.putObject(BUCKET_NAME, objectKey, inputStream, new ObjectMetadata());
         return objectKey;
     }
 
     protected String getImageAsBase64String(String key) {
-        try (final S3ObjectInputStream s3ObjectInputStream = this.s3.getObject(BUCKET_NAME, key).getObjectContent()) {
+        try (final S3ObjectInputStream s3ObjectInputStream = this.amazonS3.getObject(BUCKET_NAME, key).getObjectContent()) {
             return Base64.getEncoder().encodeToString(s3ObjectInputStream.getDelegateStream().readAllBytes());
         } catch (IOException e) {
-            log.error("An error occurred while reading a byte array");
+            logger.error("An error occurred while reading a byte array");
             return "";
         }
     }

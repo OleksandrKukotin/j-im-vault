@@ -6,17 +6,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 @WebServlet("searchBySizeRange")
 public class SearchBySizeRangeServlet extends HttpServlet {
 
     private final ImageService imageService;
-    private final AmazonS3Service amazonS3Service = new AmazonS3Service();
+    private final AmazonS3Service amazonS3Service;
 
-    public SearchBySizeRangeServlet(ImageService imageService) {
+    public SearchBySizeRangeServlet(ImageService imageService, AmazonS3Service amazonS3Service) {
         this.imageService = imageService;
+        this.amazonS3Service = amazonS3Service;
     }
 
     @Override
