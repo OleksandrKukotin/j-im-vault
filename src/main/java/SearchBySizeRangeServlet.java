@@ -11,6 +11,10 @@ import java.util.List;
 @WebServlet("searchBySizeRange")
 public class SearchBySizeRangeServlet extends HttpServlet {
 
+    private static final String MESSAGE_ATTRIBUTE = "notFoundMessage";
+    private static final String NOT_FOUND_STYLE = "notFoundStyle";
+    private static final String FOR_EACH_COLLECTION_ATTRIBUTE = "imageDtos";
+
     private final ImageService imageService;
     private final AmazonS3Service amazonS3Service;
 
@@ -30,19 +34,19 @@ public class SearchBySizeRangeServlet extends HttpServlet {
             Integer.parseInt(req.getParameter("from")),
             Integer.parseInt(req.getParameter("to"))
         );
-        List<ImageDto> imageDtoList = new ArrayList<>();
-        if (!imagesList.isEmpty()){
+        List<ImageDto> imageDtos = new ArrayList<>();
+        if (!imagesList.isEmpty()) {
             for (Image image : imagesList) {
-                imageDtoList.add(new ImageDto(
+                imageDtos.add(new ImageDto(
                     image,
                     amazonS3Service.getImageAsBase64String(image.getS3ObjectKey())
                 ));
             }
         } else {
-            req.setAttribute("notFoundMessage", "Images were not found in this range =(");
-            req.setAttribute("notFoundStyle", "style = \"display : none\"");
+            req.setAttribute(MESSAGE_ATTRIBUTE, "Images were not found in this range.");
+            req.setAttribute(NOT_FOUND_STYLE, "style = \"display : none\"");
         }
-        req.setAttribute("imageDtosList", imageDtoList);
+        req.setAttribute(FOR_EACH_COLLECTION_ATTRIBUTE, imageDtos);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
     }
 }

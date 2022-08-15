@@ -16,14 +16,12 @@ public class ImagesUploaderApplication {
         final AmazonS3Service amazonS3Service = new AmazonS3Service();
         final DBConnector dbConnector = new DBConnector();
         final ImageRepositoryImpl imageRepository = new ImageRepositoryImpl(dbConnector.get());
-        final FlywayListener flywayListener = new FlywayListener(dbConnector.get());
         final ImageService imageService = new ImageService(imageRepository);
 
         final Tomcat tomcat = new Tomcat();
         tomcat.setPort(TOMCAT_PORT);
 
         final Context context = tomcat.addWebapp("", new File(WEBAPP_DIR_LOCATION).getAbsolutePath());
-        final ServletContextEvent sce = new ServletContextEvent(context.getServletContext());
         context.setAllowCasualMultipartParsing(true);
 
         tomcat.addServlet(context.getPath(), "AddingImage", new AddingImageServlet(imageService, amazonS3Service));
@@ -34,7 +32,10 @@ public class ImagesUploaderApplication {
 
         tomcat.addServlet(context.getPath(), "SearchBySizeRange", new SearchBySizeRangeServlet(imageService, amazonS3Service));
         context.addServletMappingDecoded("/searchBySizeRange", "SearchBySizeRange");
-        flywayListener.contextInitialized(sce);
+
+        final FlywayListener flywayListener = new FlywayListener(dbConnector.get());
+        final ServletContextEvent servletContextEvent = new ServletContextEvent(context.getServletContext());
+        flywayListener.contextInitialized(servletContextEvent);
 
         tomcat.getConnector();
         try {

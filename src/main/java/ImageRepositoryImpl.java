@@ -14,7 +14,7 @@ public class ImageRepositoryImpl implements ImageRepository {
     private static final String SELECT_ALL_ORDER_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
     private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ? AND ? ORDER BY size DESC";
     private static final String ERROR_MESSAGE = "An error occurred during executing query or setting up connection";
-    private static final Logger log = Logger.getLogger(ImageRepositoryImpl.class);
+    private static final Logger logger = Logger.getLogger(ImageRepositoryImpl.class);
     private final DataSource dataSource;
 
     public ImageRepositoryImpl(DataSource dataSource) {
@@ -30,7 +30,7 @@ public class ImageRepositoryImpl implements ImageRepository {
             preparedStatement.setInt(4, image.getSize());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            log.error(ERROR_MESSAGE);
+            logger.error(ERROR_MESSAGE);
         }
     }
 
@@ -68,7 +68,7 @@ public class ImageRepositoryImpl implements ImageRepository {
     }
 
     private List<Image> catchConnectionOrQueryExecutionException(Exception e) {
-        log.error(ERROR_MESSAGE, e);
+        logger.error(ERROR_MESSAGE, e);
         return new ArrayList<>();
     }
 }

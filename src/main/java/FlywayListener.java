@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 public class FlywayListener implements ServletContextListener {
 
-    private static final Logger log = Logger.getLogger(FlywayListener.class);
+    private static final Logger logger = Logger.getLogger(FlywayListener.class);
     private final DataSource dataSource;
 
     public FlywayListener(DataSource dataSource) {
@@ -15,15 +15,15 @@ public class FlywayListener implements ServletContextListener {
     }
 
     @Override
-    public void contextInitialized(ServletContextEvent sce) {
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
         final Flyway flyway = new Flyway(Flyway.configure().dataSource(this.dataSource));
         flyway.baseline();
         flyway.migrate();
-        log.debug("Migration successfully ended!");
+        logger.debug("Migration successfully ended!");
     }
 
     @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        ServletContextListener.super.contextDestroyed(sce);
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        ServletContextListener.super.contextDestroyed(servletContextEvent);
     }
 }
