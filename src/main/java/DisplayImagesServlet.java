@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("displayImages")
@@ -21,20 +20,14 @@ public class DisplayImagesServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Image> imagesList = imageService.getGlobalTop();
-        List<ImageDto> imageDtoList = new ArrayList<>();
-        if (!imagesList.isEmpty()){
-            for (Image image : imagesList) {
-                imageDtoList.add(new ImageDto(
-                    image,
-                    amazonS3Service.getImageAsBase64String(image.getS3ObjectKey())
-                ));
-            }
+        List<Image> images = imageService.getGlobalTop();
+        if (!images.isEmpty()) {
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosConverter(images, amazonS3Service);
+            req.setAttribute("imageDtos", imageDtos);
         } else {
             req.setAttribute("notFoundMessage", "An error occurred during getting images =(");
             req.setAttribute("notFoundStyle", "style = \"display : none\"");
         }
-        req.setAttribute("imageDtosList", imageDtoList);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
     }
 

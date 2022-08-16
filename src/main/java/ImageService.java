@@ -13,7 +13,7 @@ public class ImageService {
     }
 
     public List<Image> getGlobalTop() {
-        return imageRepositoryImpl.getGlobalTop();
+        return imageRepositoryImpl.getAllImages();
     }
 
     public List<Image> getTopBySizeRange(int from, int to) {

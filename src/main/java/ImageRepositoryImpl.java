@@ -26,7 +26,7 @@ public class ImageRepositoryImpl implements ImageRepository {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(INSERT_INTO_IMAGES)) {
             preparedStatement.setString(1, image.getName());
             preparedStatement.setTimestamp(2, Timestamp.valueOf(image.getCreatingTimestamp()));
-            preparedStatement.setString(3, image.getS3ObjectKey());
+            preparedStatement.setString(3, image.getKeyOfImageInS3Storage());
             preparedStatement.setInt(4, image.getSize());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -35,7 +35,7 @@ public class ImageRepositoryImpl implements ImageRepository {
     }
 
     @Override
-    public List<Image> getGlobalTop() {
+    public List<Image> getAllImages() {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_ORDER_BY_SIZE_DESC)) {
             return getImages(preparedStatement.executeQuery());
         } catch (SQLException e) {

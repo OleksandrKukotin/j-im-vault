@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @WebServlet("searchBySizeRange")
 public class SearchBySizeRangeServlet extends HttpServlet {
@@ -30,23 +31,17 @@ public class SearchBySizeRangeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Image> imagesList = imageService.getTopBySizeRange(
+        List<Image> images = imageService.getTopBySizeRange(
             Integer.parseInt(req.getParameter("from")),
             Integer.parseInt(req.getParameter("to"))
         );
-        List<ImageDto> imageDtos = new ArrayList<>();
-        if (!imagesList.isEmpty()) {
-            for (Image image : imagesList) {
-                imageDtos.add(new ImageDto(
-                    image,
-                    amazonS3Service.getImageAsBase64String(image.getS3ObjectKey())
-                ));
-            }
+        if (!images.isEmpty()) {
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosConverter(images, amazonS3Service);
+            req.setAttribute(FOR_EACH_COLLECTION_ATTRIBUTE, imageDtos);
         } else {
             req.setAttribute(MESSAGE_ATTRIBUTE, "Images were not found in this range.");
             req.setAttribute(NOT_FOUND_STYLE, "style = \"display : none\"");
         }
-        req.setAttribute(FOR_EACH_COLLECTION_ATTRIBUTE, imageDtos);
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
     }
 }

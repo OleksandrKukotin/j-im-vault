@@ -15,15 +15,13 @@ public class ImagesUploaderApplication {
     public static void main(String[] args) {
         final AmazonS3Service amazonS3Service = new AmazonS3Service();
         final DBConnector dbConnector = new DBConnector();
-        final ImageRepositoryImpl imageRepository = new ImageRepositoryImpl(dbConnector.get());
-        final ImageService imageService = new ImageService(imageRepository);
-
         final Tomcat tomcat = new Tomcat();
         tomcat.setPort(TOMCAT_PORT);
 
         final Context context = tomcat.addWebapp("", new File(WEBAPP_DIR_LOCATION).getAbsolutePath());
-        context.setAllowCasualMultipartParsing(true);
+        final ImageService imageService = new ImageService(new ImageRepositoryImpl(dbConnector.get()));
 
+        context.setAllowCasualMultipartParsing(true);
         tomcat.addServlet(context.getPath(), "AddingImage", new AddingImageServlet(imageService, amazonS3Service));
         context.addServletMappingDecoded("/imageUpload", "AddingImage");
 
@@ -41,7 +39,7 @@ public class ImagesUploaderApplication {
         try {
             tomcat.start();
         } catch (LifecycleException e) {
-            logger.error("LifecycleException had been catched");
+            logger.error("LifecycleException had been caught");
         }
         tomcat.getServer().await();
     }

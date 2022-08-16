@@ -1,4 +1,3 @@
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ImageDto {
@@ -21,7 +20,7 @@ public class ImageDto {
     }
 
     public String getS3ObjectKey() {
-        return this.image.getS3ObjectKey();
+        return this.image.getKeyOfImageInS3Storage();
     }
 
     public int getSize() {
