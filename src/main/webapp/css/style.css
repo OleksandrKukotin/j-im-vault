@@ -1,0 +1,23 @@
+menu {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-inline-start: 0
+}
+
+table, tr, td, th {
+    border: 1px solid black;
+}
+
+h1, h2, h3, h4 {
+    display: flex;
+    justify-content: center
+}
+
+.menu-item {
+    padding: 1em;
+}
+
+.form-field {
+    padding: .5em;
+}

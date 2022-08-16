@@ -10,7 +10,7 @@
         <th>Image</th>
     </tr>
     </thead>
-    <c:forEach items="${imageDtosList}" var="imageDto">
+    <c:forEach items="${imageDtos}" var="imageDto">
         <tr>
             <td> ${imageDto.getName()} </td>
             <td> ${imageDto.getSize()/1000} KB</td>
