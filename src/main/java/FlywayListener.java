@@ -7,7 +7,6 @@ import javax.sql.DataSource;
 
 public class FlywayListener implements ServletContextListener {
 
-    private static final Logger logger = Logger.getLogger(FlywayListener.class);
     private final DataSource dataSource;
 
     public FlywayListener(DataSource dataSource) {
@@ -19,7 +18,6 @@ public class FlywayListener implements ServletContextListener {
         final Flyway flyway = new Flyway(Flyway.configure().dataSource(this.dataSource));
         flyway.baseline();
         flyway.migrate();
-        logger.debug("Migration successfully ended!");
     }
 
     @Override

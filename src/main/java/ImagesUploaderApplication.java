@@ -22,14 +22,20 @@ public class ImagesUploaderApplication {
         final ImageService imageService = new ImageService(new ImageRepositoryImpl(dbConnector.get()));
 
         context.setAllowCasualMultipartParsing(true);
-        tomcat.addServlet(context.getPath(), "AddingImage", new AddingImageServlet(imageService, amazonS3Service));
-        context.addServletMappingDecoded("/imageUpload", "AddingImage");
+        final AddingImageServlet addingImageServlet = new AddingImageServlet(imageService, amazonS3Service);
+        final String ADDING_IMAGE_SERVLET_NAME = "AddingImage";
+        tomcat.addServlet(context.getPath(), ADDING_IMAGE_SERVLET_NAME, addingImageServlet);
+        context.addServletMappingDecoded("/imageUpload", ADDING_IMAGE_SERVLET_NAME);
 
-        tomcat.addServlet(context.getPath(), "DisplayImages", new DisplayImagesServlet(imageService, amazonS3Service));
-        context.addServletMappingDecoded("/imagesPreview", "DisplayImages");
+        final DisplayImagesServlet displayImagesServlet = new DisplayImagesServlet(imageService, amazonS3Service);
+        final String DISPLAY_IMAGES_SERVLET_NAME = "DisplayImages";
+        tomcat.addServlet(context.getPath(), DISPLAY_IMAGES_SERVLET_NAME, displayImagesServlet);
+        context.addServletMappingDecoded("/imagesPreview", DISPLAY_IMAGES_SERVLET_NAME);
 
-        tomcat.addServlet(context.getPath(), "SearchBySizeRange", new SearchBySizeRangeServlet(imageService, amazonS3Service));
-        context.addServletMappingDecoded("/searchBySizeRange", "SearchBySizeRange");
+        final SearchBySizeRangeServlet searchBySizeRangeServlet = new SearchBySizeRangeServlet(imageService, amazonS3Service);
+        final String SEARCH_BY_SIZE_RANGE_SERVLET_NAME = "SearchBySizeRange";
+        tomcat.addServlet(context.getPath(), SEARCH_BY_SIZE_RANGE_SERVLET_NAME, searchBySizeRangeServlet);
+        context.addServletMappingDecoded("/searchBySizeRange", SEARCH_BY_SIZE_RANGE_SERVLET_NAME);
 
         final FlywayListener flywayListener = new FlywayListener(dbConnector.get());
         final ServletContextEvent servletContextEvent = new ServletContextEvent(context.getServletContext());

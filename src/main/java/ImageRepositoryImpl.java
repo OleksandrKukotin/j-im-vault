@@ -15,6 +15,7 @@ public class ImageRepositoryImpl implements ImageRepository {
     private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ? AND ? ORDER BY size DESC";
     private static final String ERROR_MESSAGE = "An error occurred during executing query or setting up connection";
     private static final Logger logger = Logger.getLogger(ImageRepositoryImpl.class);
+    static final int multiplierFromKilobytesToMegabytes = 1000;
     private final DataSource dataSource;
 
     public ImageRepositoryImpl(DataSource dataSource) {
@@ -35,7 +36,7 @@ public class ImageRepositoryImpl implements ImageRepository {
     }
 
     @Override
-    public List<Image> getAllImages() {
+    public List<Image> findAllImages() {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_ALL_ORDER_BY_SIZE_DESC)) {
             return getImages(preparedStatement.executeQuery());
         } catch (SQLException e) {
@@ -44,10 +45,10 @@ public class ImageRepositoryImpl implements ImageRepository {
     }
 
     @Override
-    public List<Image> getTopBySizeRange(int from, int to) {
+    public List<Image> findImagesInSizeRange(int from, int to) {
         try (final PreparedStatement preparedStatement = dataSource.getConnection().prepareStatement(SELECT_BY_SIZE_RANGE)) {
-            preparedStatement.setInt(1, from * 1000);
-            preparedStatement.setInt(2, to * 1000);
+            preparedStatement.setInt(1, from * multiplierFromKilobytesToMegabytes);
+            preparedStatement.setInt(2, to * multiplierFromKilobytesToMegabytes);
             return getImages(preparedStatement.executeQuery());
         } catch (SQLException e) {
             return catchConnectionOrQueryExecutionException(e);

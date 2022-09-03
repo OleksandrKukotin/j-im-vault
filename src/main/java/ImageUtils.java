@@ -3,7 +3,7 @@ import java.util.stream.Collectors;
 
 public class ImageUtils {
 
-    private ImageUtils(){
+    private ImageUtils() {
 
     }
 

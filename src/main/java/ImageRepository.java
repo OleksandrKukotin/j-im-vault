@@ -4,7 +4,7 @@ public interface ImageRepository {
 
     void save(Image image);
 
-    List<Image> getAllImages();
+    List<Image> findAllImages();
 
-    List<Image> getTopBySizeRange(int from, int to);
+    List<Image> findImagesInSizeRange(int from, int to);
 }

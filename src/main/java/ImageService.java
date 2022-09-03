@@ -12,11 +12,11 @@ public class ImageService {
         imageRepositoryImpl.save(image);
     }
 
-    public List<Image> getGlobalTop() {
-        return imageRepositoryImpl.getAllImages();
+    public List<Image> findAllImages() {
+        return imageRepositoryImpl.findAllImages();
     }
 
-    public List<Image> getTopBySizeRange(int from, int to) {
-        return imageRepositoryImpl.getTopBySizeRange(from, to);
+    public List<Image> findImagesInSizeRange(int from, int to) {
+        return imageRepositoryImpl.findImagesInSizeRange(from, to);
     }
 }

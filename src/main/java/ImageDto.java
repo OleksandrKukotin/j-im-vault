@@ -19,10 +19,6 @@ public class ImageDto {
         return this.image.getCreatingTimestamp().format(DateTimeFormatter.ofPattern(TIME_FORMAT));
     }
 
-    public String getS3ObjectKey() {
-        return this.image.getKeyOfImageInS3Storage();
-    }
-
     public int getSize() {
         return this.image.getSize();
     }

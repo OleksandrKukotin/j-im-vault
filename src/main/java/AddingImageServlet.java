@@ -12,6 +12,9 @@ public class AddingImageServlet extends HttpServlet {
     private static final int STATUS_CODE_OK = 200;
     private static final String STATUS_TEXT_ATTRIBUTE = "message";
     private static final String IMAGE_NAME_PARAMETER = "imageName";
+    private static final String IMAGE_FILE_ATTRIBUTE = "imageFile";
+    static final String OUTPUT_JSP = "uploadStatus.jsp";
+
     private final ImageService imageService;
     private final AmazonS3Service amazonS3Service;
 
@@ -30,14 +33,14 @@ public class AddingImageServlet extends HttpServlet {
         imageService.saveImage(new Image(
             req.getParameter(IMAGE_NAME_PARAMETER),
             LocalDateTime.now(),
-            amazonS3Service.addToS3(req.getPart("imageFile").getInputStream()),
-            req.getPart("imageFile").getInputStream().readAllBytes().length
+            amazonS3Service.addToS3(req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream()),
+            req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream().readAllBytes().length
         ));
         if (resp.getStatus() == STATUS_CODE_OK) {
             req.setAttribute(STATUS_TEXT_ATTRIBUTE, "Image successful uploaded");
         } else {
             req.setAttribute(STATUS_TEXT_ATTRIBUTE, "There is error during uploading. Please, try again!");
         }
-        req.getRequestDispatcher("uploadStatus.jsp").forward(req, resp);
+        req.getRequestDispatcher(OUTPUT_JSP).forward(req, resp);
     }
 }
