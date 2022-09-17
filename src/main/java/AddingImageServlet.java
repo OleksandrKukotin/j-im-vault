@@ -11,9 +11,7 @@ public class AddingImageServlet extends HttpServlet {
 
     private static final int STATUS_CODE_OK = 200;
     private static final String STATUS_TEXT_ATTRIBUTE = "message";
-    private static final String IMAGE_NAME_PARAMETER = "imageName";
     private static final String IMAGE_FILE_ATTRIBUTE = "imageFile";
-    static final String OUTPUT_JSP = "uploadStatus.jsp";
 
     private final ImageService imageService;
     private final AmazonS3Service amazonS3Service;
@@ -24,23 +22,31 @@ public class AddingImageServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, IOException {
+    protected void doGet(
+        jakarta.servlet.http.HttpServletRequest req,
+        jakarta.servlet.http.HttpServletResponse resp
+    ) throws jakarta.servlet.ServletException, IOException {
         req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse resp) throws jakarta.servlet.ServletException, IOException {
+    protected void doPost(
+        jakarta.servlet.http.HttpServletRequest req,
+        jakarta.servlet.http.HttpServletResponse resp
+    ) throws jakarta.servlet.ServletException, IOException {
+
         imageService.saveImage(new Image(
-            req.getParameter(IMAGE_NAME_PARAMETER),
+            req.getParameter("imageName"),
             LocalDateTime.now(),
-            amazonS3Service.addToS3(req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream()),
+            amazonS3Service.uploadToS3(req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream()),
             req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream().readAllBytes().length
         ));
+
         if (resp.getStatus() == STATUS_CODE_OK) {
             req.setAttribute(STATUS_TEXT_ATTRIBUTE, "Image successful uploaded");
         } else {
             req.setAttribute(STATUS_TEXT_ATTRIBUTE, "There is error during uploading. Please, try again!");
         }
-        req.getRequestDispatcher(OUTPUT_JSP).forward(req, resp);
+        req.getRequestDispatcher("uploadStatus.jsp").forward(req, resp);
     }
 }

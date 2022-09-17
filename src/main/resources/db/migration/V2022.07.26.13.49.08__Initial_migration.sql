@@ -1,1 +1,7 @@
-CREATE TABLE IF NOT EXISTS images (id bigserial, name varchar(255), time timestamp, key varchar(255), size integer);
+CREATE TABLE IF NOT EXISTS images (
+    id BIGSERIAL,
+    name VARCHAR(255),
+    time TIMESTAMP,
+    key VARCHAR(255),
+    size INTEGER
+);

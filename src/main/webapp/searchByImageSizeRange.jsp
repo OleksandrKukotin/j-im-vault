@@ -19,5 +19,3 @@
         </li>
     </ul>
 </form>
-</body>
-</html>

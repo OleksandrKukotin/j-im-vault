@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.Base64;
 import java.util.UUID;
 
-public class AmazonS3Service {
+class AmazonS3Service {
 
     private static final String ACCESS_KEY_ENV = "accessKey";
     private static final String SECRET_KEY_ENV = "secretKey";
@@ -21,8 +21,8 @@ public class AmazonS3Service {
     private static final Logger logger = Logger.getLogger(AmazonS3Service.class);
     private final AmazonS3 amazonS3;
 
-    public AmazonS3Service() {
-        final BasicAWSCredentials awsCredentials = new BasicAWSCredentials(
+    AmazonS3Service() {
+        BasicAWSCredentials awsCredentials = new BasicAWSCredentials(
             System.getenv().getOrDefault(ACCESS_KEY_ENV, ACCESS_KEY_ENV),
             System.getenv().getOrDefault(SECRET_KEY_ENV, SECRET_KEY_ENV));
         this.amazonS3 = AmazonS3ClientBuilder.standard()
@@ -31,14 +31,14 @@ public class AmazonS3Service {
             .build();
     }
 
-    public String addToS3(InputStream inputStream) {
-        final String objectKey = UUID.randomUUID().toString();
-        this.amazonS3.putObject(BUCKET_NAME, objectKey, inputStream, new ObjectMetadata());
-        return objectKey;
+    String uploadToS3(InputStream inputStream) {
+        String key = UUID.randomUUID().toString();
+        amazonS3.putObject(BUCKET_NAME, key, inputStream, new ObjectMetadata());
+        return key;
     }
 
-    protected String getImageAsBase64String(String key) {
-        try (final S3ObjectInputStream s3ObjectInputStream = this.amazonS3.getObject(BUCKET_NAME, key).getObjectContent()) {
+    String getImageAsBase64(String key) {
+        try (final S3ObjectInputStream s3ObjectInputStream = amazonS3.getObject(BUCKET_NAME, key).getObjectContent()) {
             return Base64.getEncoder().encodeToString(s3ObjectInputStream.getDelegateStream().readAllBytes());
         } catch (IOException e) {
             logger.error("An error occurred while reading a byte array");

@@ -17,8 +17,8 @@ ext {
 }
 
 dependencies {
-    implementation 'io.openliberty.features:servlet-5.0:22.0.0.6'
-    implementation 'io.openliberty.features:pages-3.0:22.0.0.6'
+    implementation "io.openliberty.features:servlet-5.0:22.0.0.6"
+    implementation "io.openliberty.features:pages-3.0:22.0.0.6"
     implementation "org.glassfish.web:jakarta.servlet.jsp.jstl:$jstlVersion"
     implementation "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:$jstlVersion"
     implementation "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion"
@@ -26,11 +26,11 @@ dependencies {
     implementation "org.apache.tomcat:tomcat-jasper:$tomcatVersion"
     implementation "org.apache.tomcat:tomcat-jasper-el:$tomcatVersion"
     implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatVersion"
-    implementation 'org.postgresql:postgresql:42.3.6'
-    implementation 'com.amazonaws:aws-java-sdk:1.12.239'
-    implementation 'log4j:log4j:1.2.17'
-    implementation 'org.flywaydb:flyway-core:9.0.1'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.2'
+    implementation "org.postgresql:postgresql:42.3.6"
+    implementation "com.amazonaws:aws-java-sdk:1.12.239"
+    implementation "log4j:log4j:1.2.17"
+    implementation "org.flywaydb:flyway-core:9.0.1"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:2.7.2"
     testImplementation 'junit:junit:4.13.2'
 }
 

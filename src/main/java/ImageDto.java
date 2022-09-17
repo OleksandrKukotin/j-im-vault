@@ -2,7 +2,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ImageDto {
 
-    private static final String TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
+    private static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
     private final Image image;
     private final String base64Image;
 
@@ -12,15 +12,15 @@ public class ImageDto {
     }
 
     public String getName() {
-        return this.image.getName();
+        return image.getName();
     }
 
     public String getFormattedCreatingTimestamp() {
-        return this.image.getCreatingTimestamp().format(DateTimeFormatter.ofPattern(TIME_FORMAT));
+        return image.getCreatingTimestamp().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
     }
 
     public int getSize() {
-        return this.image.getSize();
+        return image.getSize();
     }
 
     public String getBase64Image() {

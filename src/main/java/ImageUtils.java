@@ -4,15 +4,12 @@ import java.util.stream.Collectors;
 public class ImageUtils {
 
     private ImageUtils() {
-
+        // hide public constructor
     }
 
-    public static List<ImageDto> imagesToImageDtosConverter(List<Image> images, AmazonS3Service amazonS3Service) {
+    public static List<ImageDto> imagesToImageDtosMapper(List<Image> images, AmazonS3Service amazonS3Service) {
         return images.stream()
-            .map(image -> new ImageDto(
-                image,
-                amazonS3Service.getImageAsBase64String(image.getKeyOfImageInS3Storage())
-            ))
+            .map(image -> new ImageDto(image, amazonS3Service.getImageAsBase64(image.getImageKeyOnS3())))
             .collect(Collectors.toList());
     }
 }

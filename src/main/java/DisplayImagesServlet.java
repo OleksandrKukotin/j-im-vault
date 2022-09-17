@@ -21,20 +21,20 @@ public class DisplayImagesServlet extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Image> images = imageService.findAllImages();
         if (!images.isEmpty()) {
-            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosConverter(images, amazonS3Service);
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service);
             req.setAttribute("imageDtos", imageDtos);
         } else {
             req.setAttribute(NOT_FOUND_MESSAGE_ATTRIBUTE, "An error occurred during getting images =(");
             req.setAttribute(NOT_FOUND_STYLE_ATTRIBUTE, "style = \"display : none\"");
         }
         req.getRequestDispatcher("globalTop.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
     }
 }

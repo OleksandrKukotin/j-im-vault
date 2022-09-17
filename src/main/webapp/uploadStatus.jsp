@@ -9,5 +9,3 @@
         <a href="/imageUpload">Return to upload page</a>
     </li>
 </menu>
-</body>
-</html>
