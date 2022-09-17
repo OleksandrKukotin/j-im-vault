@@ -46,7 +46,7 @@ public class ImagesUploaderApplication {
         try {
             tomcat.start();
         } catch (LifecycleException e) {
-            logger.error("LifecycleException had been caught");
+            logger.error("Something went wrong during tomcat running");
         }
         tomcat.getServer().await();
     }
