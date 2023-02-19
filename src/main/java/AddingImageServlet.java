@@ -1,4 +1,4 @@
-import amazon.AmazonS3Service;
+import configuration.amazon.AmazonS3Service;
 import image.Image;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;

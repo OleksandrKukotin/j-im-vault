@@ -1,5 +1,6 @@
-import amazon.AmazonS3Service;
-import flyway.FlywayListener;
+import configuration.DataSourceProvider;
+import configuration.amazon.AmazonS3Service;
+import configuration.flyway.FlywayListener;
 import jakarta.servlet.ServletContextEvent;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
@@ -26,7 +27,7 @@ public class ImagesUploaderApplication {
         final Context context = tomcat.addWebapp("", new File(WEBAPP_DIR_LOCATION).getAbsolutePath());
         context.setAllowCasualMultipartParsing(true);
 
-        final DataSource dataSource = new DBConnector().create();
+        final DataSource dataSource = new DataSourceProvider().create();
         final ImageService imageService = new ImageService(new PostgreSQLImageRepository(dataSource));
         final AmazonS3Service amazonS3Service = new AmazonS3Service();
 

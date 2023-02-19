@@ -1,4 +1,4 @@
-package flyway;
+package configuration.flyway;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
