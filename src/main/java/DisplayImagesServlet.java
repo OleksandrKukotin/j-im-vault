@@ -1,6 +1,7 @@
 import configuration.amazon.AmazonS3Service;
 import image.Image;
 import image.ImageDto;
+import image.ImageService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -1,6 +1,8 @@
 import configuration.DataSourceProvider;
 import configuration.amazon.AmazonS3Service;
 import configuration.flyway.FlywayListener;
+import image.ImageService;
+import image.PostgreSQLImageRepository;
 import jakarta.servlet.ServletContextEvent;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;

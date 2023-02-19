@@ -1,4 +1,5 @@
-import image.Image;
+package image;
+
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
@@ -12,9 +13,8 @@ public class PostgreSQLImageRepository implements ImageRepository {
     private static final String SELECT_ALL_ORDER_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
     private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ? AND ? ORDER BY size DESC";
     private static final String ERROR_MESSAGE = "An error occurred during executing query or setting up connection";
-    private static final int MULTIPLIER_FROM_KB_TO_MB = 1000;
-
-    private static final Logger logger = Logger.getLogger(PostgreSQLImageRepository.class);
+    private static final Logger LOGGER = Logger.getLogger(PostgreSQLImageRepository.class);
+    private static final int FROM_KB_TO_MB_MULTIPLIER = 1000;
 
     private final Connection connection;
 
@@ -35,28 +35,28 @@ public class PostgreSQLImageRepository implements ImageRepository {
             preparedStatement.setInt(4, image.size());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            logger.error(ERROR_MESSAGE);
+            LOGGER.error(ERROR_MESSAGE);
         }
     }
 
     @Override
     public List<Image> findAll() {
-        try (final PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDER_BY_SIZE_DESC)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_ORDER_BY_SIZE_DESC)) {
             return getImages(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            logger.error(ERROR_MESSAGE, e);
+            LOGGER.error(ERROR_MESSAGE, e);
             return new ArrayList<>();
         }
     }
 
     @Override
     public List<Image> findImagesInSizeRange(int from, int to) {
-        try (final PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_SIZE_RANGE)) {
-            preparedStatement.setInt(1, from * MULTIPLIER_FROM_KB_TO_MB);
-            preparedStatement.setInt(2, to * MULTIPLIER_FROM_KB_TO_MB);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_SIZE_RANGE)) {
+            preparedStatement.setInt(1, from * FROM_KB_TO_MB_MULTIPLIER);
+            preparedStatement.setInt(2, to * FROM_KB_TO_MB_MULTIPLIER);
             return getImages(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            logger.error(ERROR_MESSAGE, e);
+            LOGGER.error(ERROR_MESSAGE, e);
             return new ArrayList<>();
         }
     }
@@ -76,7 +76,7 @@ public class PostgreSQLImageRepository implements ImageRepository {
 
     private static final class DBConnectionException extends RuntimeException {
 
-        DBConnectionException(String message, Exception exception) {
+        private DBConnectionException(String message, Exception exception) {
             super(message, exception);
         }
     }
