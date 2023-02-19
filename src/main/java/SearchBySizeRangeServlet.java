@@ -36,7 +36,7 @@ public class SearchBySizeRangeServlet extends HttpServlet {
             Integer.parseInt(req.getParameter("to"))
         );
         if (!images.isEmpty()) {
-            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service::getImageAsBase64);
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service::getAsBase64);
             req.setAttribute("imageDtos", imageDtos);
         } else {
             req.setAttribute(MESSAGE_ATTRIBUTE, "Images were not found in this range.");

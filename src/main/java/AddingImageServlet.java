@@ -39,7 +39,7 @@ public class AddingImageServlet extends HttpServlet {
         imageService.saveImage(new Image(
             req.getParameter("imageName"),
             LocalDateTime.now(),
-            amazonS3Service.uploadToS3(req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream()),
+            amazonS3Service.upload(req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream()),
             req.getPart(IMAGE_FILE_ATTRIBUTE).getInputStream().readAllBytes().length
         ));
 
