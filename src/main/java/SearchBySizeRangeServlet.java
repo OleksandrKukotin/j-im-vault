@@ -1,3 +1,4 @@
+import amazon.AmazonS3Service;
 import image.Image;
 import image.ImageDto;
 import jakarta.servlet.ServletException;
