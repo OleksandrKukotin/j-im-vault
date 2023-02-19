@@ -1,14 +1,16 @@
+package flyway;
+
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import org.flywaydb.core.Flyway;
 
 import javax.sql.DataSource;
 
-class FlywayListener implements ServletContextListener {
+public class FlywayListener implements ServletContextListener {
 
     private final DataSource dataSource;
 
-    FlywayListener(DataSource dataSource) {
+    public FlywayListener(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
