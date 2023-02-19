@@ -1,3 +1,5 @@
+import image.Image;
+
 import java.util.List;
 
 public interface ImageRepository {

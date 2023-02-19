@@ -1,8 +1,11 @@
+package image;
+
 import java.time.format.DateTimeFormatter;
 
 public class ImageDto {
 
     private static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm:ss";
+
     private final Image image;
     private final String base64Image;
 
@@ -12,15 +15,15 @@ public class ImageDto {
     }
 
     public String getName() {
-        return image.getName();
+        return image.name();
     }
 
     public String getFormattedCreatingTimestamp() {
-        return image.getCreatingTimestamp().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
+        return image.creatingTimestamp().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
     }
 
     public int getSize() {
-        return image.getSize();
+        return image.size();
     }
 
     public String getBase64Image() {

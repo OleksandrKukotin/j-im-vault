@@ -1,3 +1,4 @@
+import image.Image;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -43,7 +44,7 @@ public class AddingImageServlet extends HttpServlet {
         ));
 
         if (resp.getStatus() == STATUS_CODE_OK) {
-            req.setAttribute(STATUS_TEXT_ATTRIBUTE, "Image successful uploaded");
+            req.setAttribute(STATUS_TEXT_ATTRIBUTE, "image.Image successful uploaded");
         } else {
             req.setAttribute(STATUS_TEXT_ATTRIBUTE, "There is error during uploading. Please, try again!");
         }

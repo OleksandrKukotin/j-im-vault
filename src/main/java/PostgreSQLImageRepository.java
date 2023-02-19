@@ -1,11 +1,8 @@
+import image.Image;
 import org.apache.log4j.Logger;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +29,10 @@ public class PostgreSQLImageRepository implements ImageRepository {
     @Override
     public void save(Image image) {
         try (final PreparedStatement preparedStatement = connection.prepareStatement(INSERT_INTO_IMAGES)) {
-            preparedStatement.setString(1, image.getName());
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(image.getCreatingTimestamp()));
-            preparedStatement.setString(3, image.getImageKeyOnS3());
-            preparedStatement.setInt(4, image.getSize());
+            preparedStatement.setString(1, image.name());
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(image.creatingTimestamp()));
+            preparedStatement.setString(3, image.imageKeyOnS3());
+            preparedStatement.setInt(4, image.size());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             logger.error(ERROR_MESSAGE);

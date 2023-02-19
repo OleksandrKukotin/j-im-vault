@@ -1,8 +1,11 @@
+import image.Image;
+import image.ImageDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.ImageUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +36,7 @@ public class SearchBySizeRangeServlet extends HttpServlet {
             Integer.parseInt(req.getParameter("to"))
         );
         if (!images.isEmpty()) {
-            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service);
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service::getImageAsBase64);
             req.setAttribute("imageDtos", imageDtos);
         } else {
             req.setAttribute(MESSAGE_ATTRIBUTE, "Images were not found in this range.");
