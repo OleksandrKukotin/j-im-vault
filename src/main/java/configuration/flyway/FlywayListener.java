@@ -6,7 +6,7 @@ import org.flywaydb.core.Flyway;
 
 import javax.sql.DataSource;
 
-// TODO: can we use @WebServlet annotation instead this: ImagesUploaderApplication.initializeFlyway
+// TODO: can we use @WebServlet or @WebListener annotation instead this: ImagesUploaderApplication.initializeFlyway
 public class FlywayListener implements ServletContextListener {
 
     private final DataSource dataSource;
