@@ -6,7 +6,7 @@
 
 ### IntelliJ IDEA ###
 .idea
-!.idea/runConfigurations/ImagesUploaderApplication.xml
+!.idea/runConfigurations/JImVaultApplication.xml
 *.iws
 *.iml
 *.ipr

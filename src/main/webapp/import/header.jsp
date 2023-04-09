@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<h1> Images Uploader </h1>
+<h1> JImVault </h1>
 <menu>
     <li class="menu-item">
         <a href="/imageUpload"> Upload Images </a>
