@@ -4,6 +4,7 @@ import configuration.flyway.FlywayListener;
 import image.ImageService;
 import image.PostgreSQLImageRepository;
 import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.http.HttpServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -35,18 +36,18 @@ public class JImVaultApplication {
         final AmazonS3Service amazonS3Service = new AmazonS3Service();
 
         // TODO: Create a helper method that takes the servlet class, servlet name, and mapping path as arguments.
-        final AddingImageServlet addingImageServlet = new AddingImageServlet(imageService, amazonS3Service);
-        tomcat.addServlet(context.getPath(), ADDING_IMAGE_SERVLET_NAME, addingImageServlet);
-        context.addServletMappingDecoded("/imageUpload", ADDING_IMAGE_SERVLET_NAME);
-
-        final DisplayImagesServlet displayImagesServlet = new DisplayImagesServlet(imageService, amazonS3Service);
-        tomcat.addServlet(context.getPath(), DISPLAY_IMAGES_SERVLET_NAME, displayImagesServlet);
-        context.addServletMappingDecoded("/imagesPreview", DISPLAY_IMAGES_SERVLET_NAME);
-
-        final SearchBySizeRangeServlet searchBySizeRangeServlet = new SearchBySizeRangeServlet(imageService, amazonS3Service);
-        tomcat.addServlet(context.getPath(), SEARCH_BY_SIZE_RANGE_SERVLET_NAME, searchBySizeRangeServlet);
-        context.addServletMappingDecoded("/searchBySizeRange", SEARCH_BY_SIZE_RANGE_SERVLET_NAME);
-
+        initializeHttpServlet(ADDING_IMAGE_SERVLET_NAME,
+            "/imageUpload",
+            new AddingImageServlet(imageService, amazonS3Service),
+            context, tomcat);
+        initializeHttpServlet(DISPLAY_IMAGES_SERVLET_NAME,
+            "/imagesPreview",
+            new DisplayImagesServlet(imageService, amazonS3Service),
+            context, tomcat);
+        initializeHttpServlet(SEARCH_BY_SIZE_RANGE_SERVLET_NAME,
+            "/searchBySizeRange",
+            new SearchBySizeRangeServlet(imageService, amazonS3Service),
+            context, tomcat);
         initializeFlyway(context, dataSource);
 
         // TODO: Wrap tomcat.start() and tomcat.getServer().await() in try-catch-finally block to ensure server is stopped properly
@@ -57,6 +58,11 @@ public class JImVaultApplication {
             logger.error("Something went wrong during tomcat running");
         }
         tomcat.getServer().await();
+    }
+
+    private static void initializeHttpServlet(String name, String path, HttpServlet servlet, Context context, Tomcat tomcat) {
+        tomcat.addServlet(context.getPath(), name, servlet);
+        context.addServletMappingDecoded(path, name);
     }
 
     private static void initializeFlyway(Context context, DataSource dataSource) {
