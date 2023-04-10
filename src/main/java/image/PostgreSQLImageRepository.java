@@ -1,6 +1,7 @@
 package image;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -13,7 +14,7 @@ public class PostgreSQLImageRepository implements ImageRepository {
     private static final String SELECT_ALL_ORDER_BY_SIZE_DESC = "SELECT * FROM images ORDER BY size DESC";
     private static final String SELECT_BY_SIZE_RANGE = "SELECT * FROM images WHERE size BETWEEN ? AND ? ORDER BY size DESC";
     private static final String ERROR_MESSAGE = "An error occurred during executing query or setting up connection";
-    private static final Logger LOGGER = Logger.getLogger(PostgreSQLImageRepository.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostgreSQLImageRepository.class);
     private static final int FROM_KB_TO_MB_MULTIPLIER = 1000;
 
     private final Connection connection;

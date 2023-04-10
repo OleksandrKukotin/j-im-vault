@@ -7,7 +7,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class AmazonS3Service {
     private static final String ACCESS_KEY = "accessKey";
     private static final String SECRET_KEY = "secretKey";
     private static final String BUCKET_NAME = System.getenv().getOrDefault(BUCKET, BUCKET);
-    private static final Logger LOGGER = Logger.getLogger(AmazonS3Service.class);
+    private static final Logger logger = LoggerFactory.getLogger(AmazonS3Service.class);
 
     private final AmazonS3 amazonS3;
 
@@ -52,7 +54,7 @@ public class AmazonS3Service {
         try (S3ObjectInputStream s3ObjectInputStream = amazonS3.getObject(BUCKET_NAME, key).getObjectContent()) {
             return Base64.getEncoder().encodeToString(s3ObjectInputStream.getDelegateStream().readAllBytes());
         } catch (IOException e) {
-            LOGGER.error("An error occurred while reading a byte array");
+            logger.error("An error occurred while reading a byte array");
             return "";
         }
     }

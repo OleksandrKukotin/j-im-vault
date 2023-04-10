@@ -7,7 +7,8 @@ import jakarta.servlet.ServletContextEvent;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.File;
@@ -20,7 +21,7 @@ public class JImVaultApplication {
 
     private static final String WEBAPP_DIR_LOCATION = "src/main/webapp/";
     private static final int TOMCAT_PORT = 8082;
-    private static final Logger logger = Logger.getLogger(JImVaultApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(JImVaultApplication.class);
 
     public static void main(String[] args) {
         final Tomcat tomcat = new Tomcat();
