@@ -35,29 +35,31 @@ public class JImVaultApplication {
         final ImageService imageService = new ImageService(new PostgreSQLImageRepository(dataSource));
         final AmazonS3Service amazonS3Service = new AmazonS3Service();
 
-        // TODO: Create a helper method that takes the servlet class, servlet name, and mapping path as arguments.
-        initializeHttpServlet(ADDING_IMAGE_SERVLET_NAME,
-            "/imageUpload",
+        initializeHttpServlet(ADDING_IMAGE_SERVLET_NAME, "/imageUpload",
             new AddingImageServlet(imageService, amazonS3Service),
             context, tomcat);
-        initializeHttpServlet(DISPLAY_IMAGES_SERVLET_NAME,
-            "/imagesPreview",
+        initializeHttpServlet(DISPLAY_IMAGES_SERVLET_NAME, "/imagesPreview",
             new DisplayImagesServlet(imageService, amazonS3Service),
             context, tomcat);
-        initializeHttpServlet(SEARCH_BY_SIZE_RANGE_SERVLET_NAME,
-            "/searchBySizeRange",
+        initializeHttpServlet(SEARCH_BY_SIZE_RANGE_SERVLET_NAME, "/searchBySizeRange",
             new SearchBySizeRangeServlet(imageService, amazonS3Service),
             context, tomcat);
         initializeFlyway(context, dataSource);
 
-        // TODO: Wrap tomcat.start() and tomcat.getServer().await() in try-catch-finally block to ensure server is stopped properly
         tomcat.getConnector();
         try {
             tomcat.start();
+            tomcat.getServer().await();
         } catch (LifecycleException e) {
-            logger.error("Something went wrong during tomcat running");
+            logger.error("Error starting or running Tomcat", e);
+        } finally {
+            try {
+                tomcat.stop();
+                tomcat.destroy();
+            } catch (LifecycleException e) {
+                logger.error("Error stopping Tomcat:", e);
+            }
         }
-        tomcat.getServer().await();
     }
 
     private static void initializeHttpServlet(String name, String path, HttpServlet servlet, Context context, Tomcat tomcat) {
@@ -66,7 +68,6 @@ public class JImVaultApplication {
     }
 
     private static void initializeFlyway(Context context, DataSource dataSource) {
-        // TODO: Refactor flywayListener to use try-with-resources to close the connection automatically
         final FlywayListener flywayListener = new FlywayListener(dataSource);
         final ServletContextEvent servletContextEvent = new ServletContextEvent(context.getServletContext());
         flywayListener.contextInitialized(servletContextEvent);
