@@ -3,6 +3,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 /dev/data
 /tomcat.8082/*
+.run/JImVaultApplication.run.xml
 
 ### IntelliJ IDEA ###
 .idea

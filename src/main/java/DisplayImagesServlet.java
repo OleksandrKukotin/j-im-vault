@@ -33,6 +33,10 @@ public class DisplayImagesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Image> images = imageService.findAllImages();
+        // TODO: Consider adding pagination or lazy loading for cases when there are a lot of images to display, to improve performance and reduce the load on the server.
+        // TODO: Consider adding sorting options for the displayed images, such as by name or date, to make it easier for users to find specific images.
+        // TODO: Improve error handling by catching and handling more specific exceptions, rather than just catching and displaying a generic error message.
+        // TODO: Consider adding support for filtering images by name or other attributes, to allow users to find specific images more easily.
         if (!images.isEmpty()) {
             List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service::getAsBase64);
             req.setAttribute("imageDtos", imageDtos);
