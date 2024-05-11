@@ -1,7 +1,7 @@
-package utils;
+package org.github.oleksandrkukotin.jimvault.utils;
 
-import image.Image;
-import image.ImageDto;
+import org.github.oleksandrkukotin.jimvault.image.Image;
+import org.github.oleksandrkukotin.jimvault.image.ImageDto;
 
 import java.util.List;
 import java.util.function.Function;

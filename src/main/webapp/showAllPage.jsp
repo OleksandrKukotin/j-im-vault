@@ -7,7 +7,7 @@
         <th>Name</th>
         <th>Size</th>
         <th>Date</th>
-        <th>image.Image</th>
+        <th>org.github.oleksandrkukotin.jimvault.image.Image</th>
     </tr>
     </thead>
     <c:forEach items="${imageDtos}" var="imageDto">

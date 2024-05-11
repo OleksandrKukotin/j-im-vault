@@ -1,13 +1,17 @@
-import configuration.DataSourceProvider;
-import configuration.amazon.AmazonS3Service;
-import configuration.flyway.FlywayListener;
-import image.ImageService;
-import image.PostgreSQLImageRepository;
+package org.github.oleksandrkukotin.jimvault;
+
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.http.HttpServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
+import org.github.oleksandrkukotin.jimvault.configuration.DataSourceProvider;
+import org.github.oleksandrkukotin.jimvault.configuration.flyway.FlywayListener;
+import org.github.oleksandrkukotin.jimvault.image.ImageService;
+import org.github.oleksandrkukotin.jimvault.image.PostgreSQLImageRepository;
+import org.github.oleksandrkukotin.jimvault.servlet.AddingImageServlet;
+import org.github.oleksandrkukotin.jimvault.servlet.DisplayImagesServlet;
+import org.github.oleksandrkukotin.jimvault.servlet.SearchBySizeRangeServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,17 +37,16 @@ public class JImVaultApplication {
 
         final DataSource dataSource = new DataSourceProvider().create();
         final ImageService imageService = new ImageService(new PostgreSQLImageRepository(dataSource));
-        final AmazonS3Service amazonS3Service = new AmazonS3Service();
 
         initializeHttpServlet(ADDING_IMAGE_SERVLET_NAME, "/imageUpload",
-            new AddingImageServlet(imageService, amazonS3Service),
-            context, tomcat);
+                new AddingImageServlet(imageService),
+                context, tomcat);
         initializeHttpServlet(DISPLAY_IMAGES_SERVLET_NAME, "/imagesPreview",
-            new DisplayImagesServlet(imageService, amazonS3Service),
-            context, tomcat);
+                new DisplayImagesServlet(imageService),
+                context, tomcat);
         initializeHttpServlet(SEARCH_BY_SIZE_RANGE_SERVLET_NAME, "/searchBySizeRange",
-            new SearchBySizeRangeServlet(imageService, amazonS3Service),
-            context, tomcat);
+                new SearchBySizeRangeServlet(imageService),
+                context, tomcat);
         initializeFlyway(context, dataSource);
 
         tomcat.getConnector();

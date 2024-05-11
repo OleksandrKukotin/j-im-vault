@@ -1,4 +1,4 @@
-package image;
+package org.github.oleksandrkukotin.jimvault.image;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

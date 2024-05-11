@@ -1,4 +1,4 @@
-package image;
+package org.github.oleksandrkukotin.jimvault.image;
 
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +14,7 @@ public class ImageDto {
         this.base64Image = base64Image;
     }
 
+    // Disclaimer : methods below used in JSP files
     public String getName() {
         return image.name();
     }

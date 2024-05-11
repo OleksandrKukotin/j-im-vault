@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'org.github.pawawudaf'
+group 'org.github.oleksandrkukotin'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 17
@@ -12,26 +12,25 @@ repositories {
 }
 
 ext {
-    tomcatVersion = "10.1.0-M16"
-    jstlVersion = "2.0.0"
+    tomcatVersion = "11.0.0-M20"
+    jstlVersion = "3.0.0"
 }
 
 dependencies {
-    implementation 'org.postgresql:postgresql:42.5.1'
+    implementation 'org.postgresql:postgresql:42.7.3'
     implementation 'io.openliberty.features:servlet-5.0:22.0.0.6'
     implementation 'io.openliberty.features:pages-3.0:22.0.0.6'
-    implementation "org.glassfish.web:jakarta.servlet.jsp.jstl:${jstlVersion}"
+    implementation "org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1"
     implementation "jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:${jstlVersion}"
     implementation "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}"
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
     implementation "org.apache.tomcat:tomcat-jasper:${tomcatVersion}"
     implementation "org.apache.tomcat:tomcat-jasper-el:${tomcatVersion}"
     implementation "org.apache.tomcat:tomcat-jsp-api:${tomcatVersion}"
-    implementation "com.amazonaws:aws-java-sdk:1.12.239"
     implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
     implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
     implementation 'org.flywaydb:flyway-core:9.0.1'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.2.5'
     testImplementation 'junit:junit:4.13.2'
 }
 

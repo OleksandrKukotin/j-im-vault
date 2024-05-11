@@ -6,7 +6,7 @@
 /.run/
 ### IntelliJ IDEA ###
 .idea
-!.idea/runConfigurations/JImVaultApplication.xml
+!.idea/runConfigurations/org.github.oleksandrkukotin.jimvault.JImVaultApplication.xml
 *.iws
 *.iml
 *.ipr

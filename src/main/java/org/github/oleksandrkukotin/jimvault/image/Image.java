@@ -1,4 +1,4 @@
-package image;
+package org.github.oleksandrkukotin.jimvault.image;
 
 import java.time.LocalDateTime;
 
