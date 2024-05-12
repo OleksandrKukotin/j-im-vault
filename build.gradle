@@ -17,6 +17,7 @@ ext {
 }
 
 dependencies {
+    implementation 'com.amazonaws:aws-java-sdk:1.12.720'
     implementation 'org.postgresql:postgresql:42.7.3'
     implementation 'io.openliberty.features:servlet-5.0:22.0.0.6'
     implementation 'io.openliberty.features:pages-3.0:22.0.0.6'
