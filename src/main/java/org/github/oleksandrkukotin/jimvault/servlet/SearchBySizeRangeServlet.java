@@ -1,5 +1,6 @@
 package org.github.oleksandrkukotin.jimvault.servlet;
 
+import org.github.oleksandrkukotin.jimvault.configuration.localstack.S3Service;
 import org.github.oleksandrkukotin.jimvault.image.Image;
 import org.github.oleksandrkukotin.jimvault.image.ImageDto;
 import org.github.oleksandrkukotin.jimvault.image.ImageService;
@@ -21,8 +22,11 @@ public class SearchBySizeRangeServlet extends HttpServlet {
 
     private final ImageService imageService;
 
-    public SearchBySizeRangeServlet(ImageService imageService) {
+    private final S3Service s3Service;
+
+    public SearchBySizeRangeServlet(ImageService imageService, S3Service s3Service) {
         this.imageService = imageService;
+        this.s3Service = s3Service;
     }
 
     @Override
@@ -30,7 +34,6 @@ public class SearchBySizeRangeServlet extends HttpServlet {
         resp.sendRedirect("showSearchResultByImageSizeRange.jsp");
     }
 
-    //TODO: implement using of LocalStack storage
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Image> images = imageService.findImagesInSizeRange(
@@ -38,8 +41,8 @@ public class SearchBySizeRangeServlet extends HttpServlet {
             Integer.parseInt(req.getParameter("to"))
         );
         if (!images.isEmpty()) {
-//            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service::getAsBase64);
-//            req.setAttribute("imageDtos", imageDtos);
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, s3Service::getAsBase64);
+            req.setAttribute("imageDtos", imageDtos);
         } else {
             req.setAttribute(MESSAGE_ATTRIBUTE, "Images were not found in this range.");
             req.setAttribute(NOT_FOUND_STYLE, "style = \"display : none\"");

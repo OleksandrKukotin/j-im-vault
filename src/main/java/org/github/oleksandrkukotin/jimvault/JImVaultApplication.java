@@ -7,6 +7,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.github.oleksandrkukotin.jimvault.configuration.DataSourceProvider;
 import org.github.oleksandrkukotin.jimvault.configuration.flyway.FlywayListener;
+import org.github.oleksandrkukotin.jimvault.configuration.localstack.S3Service;
 import org.github.oleksandrkukotin.jimvault.image.ImageService;
 import org.github.oleksandrkukotin.jimvault.image.PostgreSQLImageRepository;
 import org.github.oleksandrkukotin.jimvault.servlet.AddingImageServlet;
@@ -37,15 +38,16 @@ public class JImVaultApplication {
 
         final DataSource dataSource = new DataSourceProvider().create();
         final ImageService imageService = new ImageService(new PostgreSQLImageRepository(dataSource));
+        final S3Service s3Service = new S3Service();
 
         initializeHttpServlet(ADDING_IMAGE_SERVLET_NAME, "/imageUpload",
-                new AddingImageServlet(imageService),
+                new AddingImageServlet(imageService, s3Service),
                 context, tomcat);
         initializeHttpServlet(DISPLAY_IMAGES_SERVLET_NAME, "/imagesPreview",
                 new DisplayImagesServlet(imageService),
                 context, tomcat);
         initializeHttpServlet(SEARCH_BY_SIZE_RANGE_SERVLET_NAME, "/searchBySizeRange",
-                new SearchBySizeRangeServlet(imageService),
+                new SearchBySizeRangeServlet(imageService, s3Service),
                 context, tomcat);
         initializeFlyway(context, dataSource);
 

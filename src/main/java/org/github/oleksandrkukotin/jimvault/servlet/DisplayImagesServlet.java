@@ -1,5 +1,6 @@
 package org.github.oleksandrkukotin.jimvault.servlet;
 
+import org.github.oleksandrkukotin.jimvault.configuration.localstack.S3Service;
 import org.github.oleksandrkukotin.jimvault.image.Image;
 import org.github.oleksandrkukotin.jimvault.image.ImageDto;
 import org.github.oleksandrkukotin.jimvault.image.ImageService;
@@ -13,7 +14,6 @@ import org.github.oleksandrkukotin.jimvault.utils.ImageUtils;
 import java.io.IOException;
 import java.util.List;
 
-// TODO: implement using of LocalStack
 @WebServlet("displayImages")
 public class DisplayImagesServlet extends HttpServlet {
 
@@ -34,8 +34,8 @@ public class DisplayImagesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Image> images = imageService.findAllImages();
         if (!images.isEmpty()) {
-//            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, amazonS3Service::getAsBase64);
-//            req.setAttribute("imageDtos", imageDtos);
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, S3Service::getAsBase64);
+            req.setAttribute("imageDtos", imageDtos);
         } else {
             req.setAttribute(NOT_FOUND_MESSAGE_ATTRIBUTE, "An error occurred during getting images =(");
             req.setAttribute(NOT_FOUND_STYLE_ATTRIBUTE, "style = \"display : none\"");

@@ -15,10 +15,10 @@ public final class ImageUtils {
 
     public static List<ImageDto> imagesToImageDtosMapper(
         List<Image> images,
-        Function<String, String> imageTOBase64Function
+        Function<String, String> imageToBase64Function
     ) {
         return images.stream()
-            .map(image -> new ImageDto(image, imageTOBase64Function.apply(image.imageKeyOnS3())))
+            .map(image -> new ImageDto(image, imageToBase64Function.apply(image.imageKeyOnS3())))
             .collect(Collectors.toList());
     }
 }
