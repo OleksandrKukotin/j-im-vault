@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+<main>
 <h1> JImVault </h1>
 <nav>
     <a href="${pageContext.request.contextPath}/imageUpload">Upload Images</a>
