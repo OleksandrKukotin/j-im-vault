@@ -44,7 +44,7 @@ public class JImVaultApplication {
                 new AddingImageServlet(imageService, s3Service),
                 context, tomcat);
         initializeHttpServlet(DISPLAY_IMAGES_SERVLET_NAME, "/imagesPreview",
-                new DisplayImagesServlet(imageService),
+                new DisplayImagesServlet(imageService, s3Service),
                 context, tomcat);
         initializeHttpServlet(SEARCH_BY_SIZE_RANGE_SERVLET_NAME, "/searchBySizeRange",
                 new SearchBySizeRangeServlet(imageService, s3Service),

@@ -7,14 +7,8 @@
 </head>
 <body>
 <h1> JImVault </h1>
-<menu>
-    <li class="menu-item">
-        <a href="/imageUpload"> Upload Images </a>
-    </li>
-    <li class="menu-item">
-        <a href="/imagesPreview"> Global TOP </a>
-    </li>
-    <li class="menu-item">
-        <a href="/searchBySizeRange"> Search by size </a>
-    </li>
-</menu>
+<nav>
+    <a href="${pageContext.request.contextPath}/imageUpload">Upload Images</a>
+    <a href="${pageContext.request.contextPath}/imagesPreview">Show all images</a>
+    <a href="${pageContext.request.contextPath}/searchBySizeRange">Search images by size</a>
+</nav>

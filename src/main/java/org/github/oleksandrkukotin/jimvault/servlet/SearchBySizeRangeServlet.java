@@ -31,7 +31,7 @@ public class SearchBySizeRangeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("showSearchResultByImageSizeRange.jsp");
+        resp.sendRedirect("searchByImageSizeRange.jsp");
     }
 
     @Override

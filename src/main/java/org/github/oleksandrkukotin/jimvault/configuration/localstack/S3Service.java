@@ -2,6 +2,7 @@ package org.github.oleksandrkukotin.jimvault.configuration.localstack;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
@@ -10,8 +11,6 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
@@ -20,8 +19,8 @@ import java.util.UUID;
 public class S3Service {
 
     private static final String BUCKET = "images";
-    private static final String ACCESS_KEY = "accessKey";
-    private static final String SECRET_KEY = "secretKey";
+    private static final String ACCESS_KEY = "test";
+    private static final String SECRET_KEY = "test";
     private static final String BUCKET_NAME = System.getenv().getOrDefault(BUCKET, BUCKET);
     private static final Logger logger = LoggerFactory.getLogger(S3Service.class);
 
@@ -33,24 +32,17 @@ public class S3Service {
                 System.getenv().getOrDefault(SECRET_KEY, SECRET_KEY));
         this.amazonS3 = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
-                .withRegion(Regions.EU_WEST_2)
+                .withEndpointConfiguration(
+                        new AwsClientBuilder.EndpointConfiguration("s3.localhost.localstack.cloud:4566",
+                                Regions.EU_WEST_2.getName()
+                        )
+                )
                 .build();
-    }
-
-    public S3Service(AmazonS3 amazonS3) {
-        this.amazonS3 = amazonS3;
     }
 
     public String upload(InputStream inputStream) {
         String key = UUID.randomUUID().toString();
         amazonS3.putObject(BUCKET_NAME, key, inputStream, new ObjectMetadata());
-        return key;
-    }
-
-    // TODO: use this instead method above
-    public String upload(File file) {
-        String key = UUID.randomUUID().toString();
-        amazonS3.putObject(BUCKET_NAME, key, file);
         return key;
     }
 

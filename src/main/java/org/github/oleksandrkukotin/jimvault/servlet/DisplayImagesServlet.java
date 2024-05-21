@@ -20,9 +20,11 @@ public class DisplayImagesServlet extends HttpServlet {
     static final String NOT_FOUND_STYLE_ATTRIBUTE = "notFoundStyle";
     static final String NOT_FOUND_MESSAGE_ATTRIBUTE = "notFoundMessage";
     private final ImageService imageService;
+    private final S3Service s3Service;
 
-    public DisplayImagesServlet(ImageService imageService) {
+    public DisplayImagesServlet(ImageService imageService, S3Service s3Service) {
         this.imageService = imageService;
+        this.s3Service = s3Service;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class DisplayImagesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Image> images = imageService.findAllImages();
         if (!images.isEmpty()) {
-            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, S3Service::getAsBase64);
+            List<ImageDto> imageDtos = ImageUtils.imagesToImageDtosMapper(images, s3Service::getAsBase64);
             req.setAttribute("imageDtos", imageDtos);
         } else {
             req.setAttribute(NOT_FOUND_MESSAGE_ATTRIBUTE, "An error occurred during getting images =(");
