@@ -1,9 +1,9 @@
 package org.github.oleksandrkukotin.jimvault.servlet;
 
-import org.github.oleksandrkukotin.jimvault.configuration.localstack.S3Service;
+import org.github.oleksandrkukotin.jimvault.service.S3Service;
 import org.github.oleksandrkukotin.jimvault.image.Image;
 import org.github.oleksandrkukotin.jimvault.image.ImageDto;
-import org.github.oleksandrkukotin.jimvault.image.ImageService;
+import org.github.oleksandrkukotin.jimvault.service.ImageService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

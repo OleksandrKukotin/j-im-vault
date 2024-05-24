@@ -1,4 +1,4 @@
-package org.github.oleksandrkukotin.jimvault.configuration.localstack;
+package org.github.oleksandrkukotin.jimvault.service;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

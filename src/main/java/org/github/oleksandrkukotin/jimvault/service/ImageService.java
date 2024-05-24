@@ -1,4 +1,7 @@
-package org.github.oleksandrkukotin.jimvault.image;
+package org.github.oleksandrkukotin.jimvault.service;
+
+import org.github.oleksandrkukotin.jimvault.image.Image;
+import org.github.oleksandrkukotin.jimvault.image.ImageRepository;
 
 import java.util.List;
 
